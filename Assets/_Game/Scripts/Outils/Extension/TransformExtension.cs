@@ -1,5 +1,5 @@
 using DG.Tweening;
-using Spine.Unity;
+// using Spine.Unity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -137,10 +137,10 @@ public static class TransformExtension
     }
 
 
-    public static void DOColor(this SkeletonGraphic target, Color endValue, float duration)
-    {
-        DOTween.To(() => target.color, col => { target.color = col; }, endValue, duration);
-    }
+    // public static void DOColor(this SkeletonGraphic target, Color endValue, float duration)
+    // {
+    //     DOTween.To(() => target.color, col => { target.color = col; }, endValue, duration);
+    // }
 
 
 }

@@ -44,26 +44,6 @@ public enum EView
 }
 
 
-[Serializable]
-public class LocalView
-{
-    public ViewSplash splash;
-    public ViewLoading loading;
-    public ViewPrivacy privacy;
-    public ViewLogin login;
-    public ViewLobby lobby;
-    public ViewQuest quest;
-    public ViewProfile profile;
-    public ViewFormation formation;
-    public ViewEquipment equipment;
-    public ViewCharacter character;
-    public ViewBloodUnion bloodUnion;
-    public ViewSkillSynthesis skillSynthesis;
-    public ViewArena arena;
-    public ViewArenaConfirm arenaConfirm;
-}
-
-
 public enum SFX
 {
     // music

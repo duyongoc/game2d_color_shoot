@@ -6,7 +6,7 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(EventDispatcher))]
-public class EventDispatcherEditor : BountykindEditor
+public class EventDispatcherEditor : Editor
 {
     
 
@@ -25,7 +25,7 @@ public class EventDispatcherEditor : BountykindEditor
     private void DrawCustomDebug()
     {
         GUILayout.Space(20);
-        showMoreDebug = EditorGUILayout.Foldout(showMoreDebug, "Show Debug Seting", cheatStyle);
+        showMoreDebug = EditorGUILayout.Foldout(showMoreDebug, "Show Debug Seting");
 
         if (showMoreDebug)
         {
