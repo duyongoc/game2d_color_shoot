@@ -8,16 +8,9 @@ using System.Linq;
 public class EventDispatcher : Singleton<EventDispatcher>
 {
 
-    [RuntimeInitializeOnLoadMethod]
-    private static void RunOnStart()
-    {
-        Application.quitting += () => applicationIsQuitting = true;
-    }
-
 
     /// Store all "listener"
     [SerializeField] private bool isShowLog = false;
-    private static bool applicationIsQuitting = false;
     private Dictionary<EventID, Action<object>> _listeners = new Dictionary<EventID, Action<object>>();
 
 

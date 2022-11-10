@@ -5,19 +5,21 @@ using DG.Tweening;
 using UnityEngine;
 
 
-public class TweenLocalTransfrom : TweenObject
-{
 
+public class TweenRectTransfrom : TweenObject
+{
 
     private Vector3 _originPosition;
     private Vector3 _originScale;
     private Quaternion _originRotation;
+    private CanvasGroup _canvasGroup;
 
 
-    public TweenLocalTransfrom(Transform transform)
+    public TweenRectTransfrom(Transform transform)
     {
-        _originPosition = transform.localPosition;
-        _originRotation = transform.localRotation;
+        _canvasGroup = transform.GetComponent<CanvasGroup>();
+        _originPosition = transform.AsRectTransform().localPosition;
+        _originRotation = transform.AsRectTransform().localRotation;
         _originScale = transform.localScale;
     }
 
@@ -81,14 +83,24 @@ public class TweenLocalTransfrom : TweenObject
 
     public override void PlayPosition(Transform transform, float duration, int loop, Action callback = null)
     {
-        transform.localPosition = positionFrom;
-        transform.DOLocalMove(positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
+        transform.AsRectTransform().localPosition = positionFrom;
+        transform.AsRectTransform().DOAnchorPos(positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
     }
 
+    public override void PlayFading(float duration, int loop, Ease easeType, Action callback = null)
+    {
+        _canvasGroup.DOFade(1, 0);
+        _canvasGroup.DOFade(0, duration).SetLoops(loop).SetEase(easeType).Play().OnComplete(() => { callback?.Invoke(); });
+    }
+    
+    public override void PlayFading(float value, float duration, int loop, Ease easeType, Action callback = null)
+    {
+        _canvasGroup.DOFade(value, duration).SetLoops(loop).SetEase(easeType).Play().OnComplete(() => { callback?.Invoke(); });
+    }
 
     public override void PlayMoveTo(Transform transform, Vector3 _positionTo, float duration, int loop, Action callback = null)
     {
-        transform.DOLocalMove(_positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
+        transform.AsRectTransform().DOAnchorPos(_positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
     }
 
     public override void PlayRotateTo(Transform transform, Vector3 _rotateTo, float duration, int loop, Action callback = null)
@@ -105,14 +117,17 @@ public class TweenLocalTransfrom : TweenObject
     public override void ResetTween(Transform transform)
     {
         base.ResetTween(transform);
-        transform.localPosition = _originPosition;
-        transform.localRotation = _originRotation;
+
+        transform.AsRectTransform().localPosition = _originPosition;
+        transform.AsRectTransform().localRotation = _originRotation;
         transform.localScale = _originScale;
 
-        positionFrom = _originPosition;
-        rotationFrom = _originRotation.eulerAngles;
-        scaleFrom = _originScale;
+        _canvasGroup.DOKill();
+        _canvasGroup.DOFade(1, 0);
+        
+        // positionFrom = _originPosition;
+        // rotationFrom = _originRotation.eulerAngles;
+        // scaleFrom = _originScale;
     }
 
 }
-

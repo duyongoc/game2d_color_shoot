@@ -5,11 +5,10 @@ using UnityEngine;
 public class ObstacleShield : MonoBehaviour
 {
 
-    // inspector
+    [Header("Shield")]
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject shieldEffect;
     [SerializeField] private SpriteRenderer spriteRenderer;
-
 
     // private
     private float _rotateSpeed;
@@ -17,13 +16,13 @@ public class ObstacleShield : MonoBehaviour
 
 
     #region UNITY
-    private void Start()
-    {
-    }
+    // private void Start()
+    // {
+    // }
 
     private void FixedUpdate()
     {
-        if (!GameMgr.Instance.IsInGameState)
+        if (!GameManager.Instance.IsInGameState)
             return;
 
         RotateShield();
@@ -37,6 +36,7 @@ public class ObstacleShield : MonoBehaviour
         _rotateSpeed = speed;
         spriteRenderer.color = color;
     }
+
 
     public void SetShieldSpeed(float speed)
     {

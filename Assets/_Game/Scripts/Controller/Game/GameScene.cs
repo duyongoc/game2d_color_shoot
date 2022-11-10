@@ -108,14 +108,14 @@ public class GameScene : Singleton<GameScene>
 
     public void MovePlayer()
     {
-        SoundMgr.Instance.PlaySFX(SoundMgr.SFX_PASS_OBSTACLE);
+        SoundManager.Instance.PlaySFX(SoundManager.SFX_PASS_OBSTACLE);
         player.MoveToTarget(_nextObstacle.transform.position, () => { NextTurn(); });
     }
 
 
     public void UpdateScore()
     {
-        _viewInGame.UpdateScore(ScoreMgr.Instance.score);
+        _viewInGame.UpdateScore(ScoreManager.Instance.score);
     }
 
 
@@ -130,9 +130,9 @@ public class GameScene : Singleton<GameScene>
     public void GameOver()
     {
         ShakeCamera();
-        SoundMgr.StopMusic();
+        SoundManager.StopMusic();
 
-        DG.Tweening.DOVirtual.DelayedCall(1f, () => { GameMgr.Instance.GameOver(); });
+        DG.Tweening.DOVirtual.DelayedCall(1f, () => { GameManager.Instance.GameOver(); });
     }
 
 
@@ -152,7 +152,7 @@ public class GameScene : Singleton<GameScene>
         obstacleList.ForEach(x => { if (x != null) Destroy(x); });
         obstacleList.Clear();
 
-        GameMgr.EVENT_RESET_INGAME?.Invoke();
+        GameManager.EVENT_RESET_INGAME?.Invoke();
 
         // refesh game
         Init();

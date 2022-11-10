@@ -22,7 +22,7 @@ public class TurnData
 
 
 [CreateAssetMenu(fileName = "Setting", menuName = "Setting/Setting", order = 1)]
-public class SettingSO : ScriptableObject
+public class SOSetting : ScriptableObject
 {
     public int arrows = 3;
 

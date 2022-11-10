@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundMgr : Singleton<SoundMgr>
+public class SoundManager : Singleton<SoundManager>
 {
-    //= inspector
+
+
     [Header("Setting")]
-    [SerializeField] private SoundConfigSO config;
+    [SerializeField] private SOSoundConfig config;
     [SerializeField] private Soundy soundyPrefab;
 
     [Header("Audio")]

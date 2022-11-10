@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
 
     private void ImpactShield()
     {
-        SoundMgr.Instance.PlaySFX(SoundMgr.SFX_SHOOT_HIT);
+        SoundManager.Instance.PlaySFX(SoundManager.SFX_SHOOT_HIT);
         SelfDestroy();
     }
 

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class View : MonoBehaviour
+public abstract class View : MonoBehaviour
 {
     
-    public virtual void StartState() { }
-    public virtual void UpdateState() { }
-    public virtual void EndState() { }
+    public abstract void StartState();
+    public abstract void UpdateState();
+    public abstract void EndState();
 
 }

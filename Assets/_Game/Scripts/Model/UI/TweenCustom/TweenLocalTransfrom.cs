@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 
 
-public class TweenTransfrom : TweenObject
+public class TweenLocalTransfrom : TweenObject
 {
 
 
@@ -14,10 +14,10 @@ public class TweenTransfrom : TweenObject
     private Quaternion _originRotation;
 
 
-    public TweenTransfrom(Transform transform)
+    public TweenLocalTransfrom(Transform transform)
     {
-        _originPosition = transform.position;
-        _originRotation = transform.rotation;
+        _originPosition = transform.localPosition;
+        _originRotation = transform.localRotation;
         _originScale = transform.localScale;
     }
 
@@ -49,14 +49,14 @@ public class TweenTransfrom : TweenObject
     {
         if (activePosition)
         {
-            transform.position = positionFrom;
-            transform.DOMove(positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
+            transform.localPosition = positionFrom;
+            transform.DOLocalMove(positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
         }
 
         if (activeRotation)
         {
-            transform.rotation = Quaternion.Euler(rotationFrom.x, rotationFrom.y, rotationFrom.z);
-            transform.DORotate(rotationTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
+            transform.localRotation = Quaternion.Euler(rotationFrom.x, rotationFrom.y, rotationFrom.z);
+            transform.DOLocalRotate(rotationTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
         }
 
         if (activeScale)
@@ -75,26 +75,25 @@ public class TweenTransfrom : TweenObject
 
     public override void PlayRotation(Transform transform, float duration, int loop, Action callback = null)
     {
-        transform.rotation = Quaternion.Euler(rotationFrom.x, rotationFrom.y, rotationFrom.z);
-        transform.DORotate(rotationTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
+        transform.localRotation = Quaternion.Euler(rotationFrom.x, rotationFrom.y, rotationFrom.z);
+        transform.DOLocalRotate(rotationTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
     }
 
     public override void PlayPosition(Transform transform, float duration, int loop, Action callback = null)
     {
-        transform.position = positionFrom;
-        transform.DOMove(positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
+        transform.localPosition = positionFrom;
+        transform.DOLocalMove(positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
     }
-
 
 
     public override void PlayMoveTo(Transform transform, Vector3 _positionTo, float duration, int loop, Action callback = null)
     {
-        transform.DOMove(_positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
+        transform.DOLocalMove(_positionTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
     }
 
     public override void PlayRotateTo(Transform transform, Vector3 _rotateTo, float duration, int loop, Action callback = null)
     {
-        transform.DORotate(_rotateTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
+        transform.DOLocalRotate(_rotateTo, duration).SetLoops(loop).Play().OnComplete(() => { callback?.Invoke(); });
     }
 
     public override void PlayScaleTo(Transform transform, Vector3 _scaleTo, float duration, int loop, Action callback = null)
@@ -106,14 +105,13 @@ public class TweenTransfrom : TweenObject
     public override void ResetTween(Transform transform)
     {
         base.ResetTween(transform);
-        transform.position = _originPosition;
-        transform.rotation = _originRotation;
+        transform.localPosition = _originPosition;
+        transform.localRotation = _originRotation;
         transform.localScale = _originScale;
 
         positionFrom = _originPosition;
         rotationFrom = _originRotation.eulerAngles;
         scaleFrom = _originScale;
     }
-
 
 }

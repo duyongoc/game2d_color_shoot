@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class GameMgr : Singleton<GameMgr>
+public class GameManager : Singleton<GameManager>
 {
 
     // public
@@ -37,7 +37,7 @@ public class GameMgr : Singleton<GameMgr>
     private void InitGame()
     {
         SetState(gameState);
-        SoundMgr.PlayMusic(SoundMgr.MUSIC_MENU);
+        SoundManager.PlayMusic(SoundManager.MUSIC_MENU);
     }
 
 
@@ -45,7 +45,7 @@ public class GameMgr : Singleton<GameMgr>
     {
         GameScene.Instance.Init();
         SetState(GameState.InGame);
-        SoundMgr.PlayMusic(SoundMgr.MUSIC_BACKGROUND);
+        SoundManager.PlayMusic(SoundManager.MUSIC_BACKGROUND);
     }
 
 
@@ -53,14 +53,14 @@ public class GameMgr : Singleton<GameMgr>
     {
         GameScene.Instance.ResetGame();
         SetState(GameState.InGame);
-        SoundMgr.PlayMusic(SoundMgr.MUSIC_BACKGROUND);
+        SoundManager.PlayMusic(SoundManager.MUSIC_BACKGROUND);
     }
 
 
     public void GameOver()
     {
         SetState(GameState.GameOver);
-        SoundMgr.Instance.PlaySFX(SoundMgr.SFX_GAMEOVER);
+        SoundManager.Instance.PlaySFX(SoundManager.SFX_GAMEOVER);
     }
 
 
@@ -70,16 +70,20 @@ public class GameMgr : Singleton<GameMgr>
 
         switch (gameState)
         {
-            case GameState.Loading: _viewMgr.SetStateView("Loading"); break;
-            case GameState.Menu: _viewMgr.SetStateView("Menu"); break;
-            case GameState.InGame: _viewMgr.SetStateView("InGame"); break;
-            case GameState.GameOver: _viewMgr.SetStateView("GameOver"); break;
-            case GameState.Setting: _viewMgr.SetStateView("Setting"); break;
-            case GameState.None: _viewMgr.SetStateView("None"); break;
+            case GameState.Loading:
+                _viewMgr.SetStateView("Loading"); break;
+            case GameState.Menu:
+                _viewMgr.SetStateView("Menu"); break;
+            case GameState.InGame:
+                _viewMgr.SetStateView("InGame"); break;
+            case GameState.GameOver:
+                _viewMgr.SetStateView("GameOver"); break;
+            case GameState.Setting:
+                _viewMgr.SetStateView("Setting"); break;
+            case GameState.None:
+                _viewMgr.SetStateView("None"); break;
         }
     }
-
-
 
 
 }

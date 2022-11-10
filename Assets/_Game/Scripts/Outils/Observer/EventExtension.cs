@@ -7,27 +7,9 @@ public enum EventID
 {
     None = 0,
 
-    // get user's data
-    OnSuccess_GetUserData,
-
-    // selected item
-    OnSelected_UserCharacter,
-    OnSelected_UserItem,
-    OnSelected_UserSphere,
-
-    OnSelected_ItemSynthesis,
-
-    // search
-    OnSearch_Character,
-
-    // filter
-    OnFilter_Character,
-
-    // drag
-    OnDrag_Character,
-    OnPlaced_Character,
-
-    // popup
+    // score
+    OnChange_ScoreIncrease,
+    OnChange_ScoreDecrease,
 
     // if you need more event, add it here
     // todo

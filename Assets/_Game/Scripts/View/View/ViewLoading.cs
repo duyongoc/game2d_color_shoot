@@ -22,19 +22,16 @@ public class ViewLoading : View
     #region STATE
     public override void StartState()
     {
-        base.StartState();
         StartView();
     }
 
     public override void UpdateState()
     {
-        base.UpdateState();
         UpdateView();
     }
 
     public override void EndState()
     {
-        base.EndState();
         EndView();
     }
     #endregion

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+
 public class TweenObject
 {
 
@@ -35,10 +36,12 @@ public class TweenObject
     public virtual void PlayScale(Transform transform, float duration, int loop, Action callback = null) { }
     public virtual void PlayRotation(Transform transform, float duration, int loop, Action callback = null) { }
     public virtual void PlayPosition(Transform transform, float duration, int loop, Action callback = null) { }
+    public virtual void PlayFading(float duration, int loop, Ease easeType, Action callback = null) { }
+    public virtual void PlayFading(float value, float duration, int loop, Ease easeType, Action callback = null) { }
+
 
     public virtual void PlayMoveTo(Transform transform, Vector3 _positionTo, float duration, int loop, Action callback = null) { }
     public virtual void PlayRotateTo(Transform transform, Vector3 _rotateTo, float duration, int loop, Action callback = null) { }
     public virtual void PlayScaleTo(Transform transform, Vector3 _scaleTo, float duration, int loop, Action callback = null) { }
-
 
 }

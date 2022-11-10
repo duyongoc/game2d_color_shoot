@@ -37,7 +37,6 @@ public class FPSCounter : Singleton<FPSCounter>
         accum += Time.timeScale / Time.deltaTime;
         ++frames;
 
-        // interval ended 
         // update GUI text and start new interval
         if (timeleft <= 0.0)
         {

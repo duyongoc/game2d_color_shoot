@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreMgr : Singleton<ScoreMgr>
+public class ScoreManager : Singleton<ScoreManager>
 {
 
 
@@ -11,21 +11,23 @@ public class ScoreMgr : Singleton<ScoreMgr>
     public int highscore;
 
 
+
     #region UNITY
     private void OnEnable()
     {
-        GameMgr.EVENT_RESET_INGAME += ResetData;
+        GameManager.EVENT_RESET_INGAME += ResetData;
     }
 
     private void OnDisable()
     {
-        GameMgr.EVENT_RESET_INGAME -= ResetData;
+        GameManager.EVENT_RESET_INGAME -= ResetData;
     }
 
     // private void Update()
     // {
     // }
     #endregion
+
 
 
     public void UpdateScore(int addScore = 10)

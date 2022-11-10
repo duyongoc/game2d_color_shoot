@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    // inspector
+
     [Header("Bullet")]
     [SerializeField] private Transform bulletPrefab;
     [SerializeField] private float bulletSpeed = 25f;
@@ -18,10 +18,10 @@ public class Player : MonoBehaviour
 
 
     // private
+    private Color _color;
     private GameScene _gameScene;
     private List<Bullet> bulletList;
     private bool _isMoving = false;
-    private Color _color;
 
 
     #region UNITY
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!GameMgr.Instance.IsInGameState)
+        if (!GameManager.Instance.IsInGameState)
             return;
 
         UpdateShotBullet();
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         bullet.GetComponent<Bullet>().InitBullet(_color, vecDir.normalized, bulletSpeed);
         bulletList.Add(bullet.GetComponent<Bullet>());
 
-        SoundMgr.Instance.PlaySFX(SoundMgr.SFX_SHOOT);
+        SoundManager.Instance.PlaySFX(SoundManager.SFX_SHOOT);
     }
 
 
@@ -78,7 +78,8 @@ public class Player : MonoBehaviour
         transform.DOKill();
         ClearAllBullets();
 
-        transform.DOMove(target, timeMove).SetEase(Ease.InOutQuad)
+        transform.DOMove(target, timeMove)
+            .SetEase(Ease.InOutQuad)
             .OnComplete(() =>
             {
                 callback?.Invoke();

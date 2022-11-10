@@ -20,15 +20,15 @@ public class CameraFollow : MonoBehaviour
     #region UNITY
     private void OnEnable()
     {
-        GameMgr.EVENT_RESET_INGAME += ResetData;
+        GameManager.EVENT_RESET_INGAME += ResetData;
     }
 
     private void OnDisable()
     {
-        GameMgr.EVENT_RESET_INGAME -= ResetData;
+        GameManager.EVENT_RESET_INGAME -= ResetData;
     }
 
- 
+
     private void Start()
     {
         _target = GameScene.Instance.GetPlayer;
@@ -36,7 +36,7 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!GameMgr.Instance.IsInGameState)
+        if (!GameManager.Instance.IsInGameState)
             return;
 
         FollowToTarget();
@@ -48,7 +48,7 @@ public class CameraFollow : MonoBehaviour
     private void FollowToTarget()
     {
         var speed = moveSpeed * Time.deltaTime;
-        if(_target.position.y + yOffset > transform.position.y)
+        if (_target.position.y + yOffset > transform.position.y)
         {
             var vec = new Vector3(_target.position.x + xOffset, _target.position.y + yOffset, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, vec, speed);

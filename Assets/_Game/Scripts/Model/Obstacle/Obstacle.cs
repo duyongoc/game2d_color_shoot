@@ -8,26 +8,26 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
 
-    // inspecter
+    [Space(15)]
     [SerializeField] private int scorePlus = 5;
     [SerializeField] private GameObject scorePrefab;
     [SerializeField] private GameObject shieldPrefab;
     [SerializeField] private List<ObstacleShield> shields;
 
-    [Space(10)]
+    [Space(15)]
     [SerializeField] private TextMesh textMesh;
     [SerializeField] private Transform aimTarget;
     [SerializeField] private SpriteRenderer[] sprites;
 
-    [Header("Anim")]
+    [Header("Animation")]
     [SerializeField] private Animator aimAnim;
     [SerializeField] private Animator waveAnim;
 
 
     // private
+    private int _value;
     private Color _color;
     private Transform _nextObstacle;
-    private int _value;
 
     private TurnData _turn;
     private bool _hasBroken = false;
@@ -168,7 +168,7 @@ public class Obstacle : MonoBehaviour
         var score = scorePrefab.SpawnToGarbage(transform.position, Quaternion.identity);
         score.GetComponent<TextScore>().Init(newScore, _color);
 
-        ScoreMgr.Instance.UpdateScore(newScore);
+        ScoreManager.Instance.UpdateScore(newScore);
         GameScene.Instance.UpdateScore();
     }
 
@@ -180,7 +180,7 @@ public class Obstacle : MonoBehaviour
 
         AddScore(scorePlus);
         ShakeObstacle();
-        SoundMgr.Instance.PlaySFX(SoundMgr.SFX_SHOOT_HIT);
+        SoundManager.Instance.PlaySFX(SoundManager.SFX_SHOOT_HIT);
     }
 
 

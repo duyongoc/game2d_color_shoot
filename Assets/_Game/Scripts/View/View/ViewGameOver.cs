@@ -30,56 +30,27 @@ public class ViewGameOver : View
     #region STATE
     public override void StartState()
     {
-        base.StartState();
-        StartView();
+        ShowScore();
     }
 
     public override void UpdateState()
     {
-        base.UpdateState();
-        UpdateView();
+        if (Input.GetMouseButtonUp(0))
+        {
+            GameManager.Instance.ReplayGame();
+        }
     }
 
     public override void EndState()
     {
-        base.EndState();
-        EndView();
     }
     #endregion
 
 
-
-    private void StartView()
+    private void ShowScore()
     {
-        ShowScore();
-
-    }
-
-    private void UpdateView()
-    {
-        if (Input.GetMouseButtonUp(0))
-        {
-            GameMgr.Instance.ReplayGame();
-        }
-    }
-
-    private void EndView()
-    {
-    }
-
-
-    private async void ShowScore()
-    {
-        int score = ScoreMgr.Instance.score;
+        int score = ScoreManager.Instance.score;
         textHighScore.text = score.ToString();
-
-        try
-        {
-            // await CoreGame.CoreClient.Instance.ReportHightScore("archer_score", score);
-        }
-        catch
-        {
-        }
     }
 
 
