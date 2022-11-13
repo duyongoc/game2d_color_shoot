@@ -51,10 +51,10 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Shield"))
         {
-            other.GetComponentInParent<ObstacleShield>()?.ImpactBullet(transform);
+            var shield = other.GetComponentInParent<ObstacleShield>();
+            shield?.ImpactBullet(transform);
 
-            GameScene.Instance.HasFinish = true;
-            GameScene.Instance.GameOver();
+            this.PostEvent(EventID.OnEvent_GameOver);
             ImpactShield();
         }
     }

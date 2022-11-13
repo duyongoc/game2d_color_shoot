@@ -16,11 +16,13 @@ public class ScoreManager : Singleton<ScoreManager>
     private void OnEnable()
     {
         GameManager.EVENT_RESET_INGAME += ResetData;
+        this.RegisterListener(EventID.OnEvent_UpdateScore, UpdateScore);
     }
 
     private void OnDisable()
     {
         GameManager.EVENT_RESET_INGAME -= ResetData;
+        this.RemoveListener(EventID.OnEvent_UpdateScore, UpdateScore);
     }
 
     // private void Update()
@@ -30,9 +32,9 @@ public class ScoreManager : Singleton<ScoreManager>
 
 
 
-    public void UpdateScore(int addScore = 10)
+    public void UpdateScore(object param)
     {
-        score += addScore;
+        score += (int)param;
         highscore = PlayerPrefs.GetInt("high_score");
 
         if (score > highscore)

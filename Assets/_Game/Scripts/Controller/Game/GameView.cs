@@ -7,11 +7,6 @@ public class GameView : MonoBehaviour
 {
 
 
-    // [Inject] GameMgr _gameMgr;
-
-    // private
-    private View _stateView;
-
     // DI
     [Inject] private ViewLoading _viewLoading;
     [Inject] private ViewMenu _viewMenu;
@@ -20,6 +15,9 @@ public class GameView : MonoBehaviour
     [Inject] private ViewSetting _viewSetting;
     [Inject] private ViewNone _viewNone;
 
+    // private
+    private View _stateView;
+    // [Inject] GameMgr _gameMgr;
 
 
     #region UNITY

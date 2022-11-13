@@ -7,7 +7,8 @@ using UnityEngine;
 public class TextScore : MonoBehaviour
 {
 
-    // inspector
+
+    [Space(10)]
     [SerializeField] private TMP_Text textScore;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float destroyTime;
@@ -25,6 +26,7 @@ public class TextScore : MonoBehaviour
     #endregion
 
 
+
     public void Init(int score, Color color)
     {
         textScore.text = $"+{score}";
@@ -39,10 +41,7 @@ public class TextScore : MonoBehaviour
 
         textScore.DOFade(1, 0);
         textScore.DOFade(0, destroyTime)
-            .OnComplete(() =>
-            {
-                Destroy(this.gameObject);
-            });
+            .OnComplete(() => { Destroy(this.gameObject); });
     }
 
 

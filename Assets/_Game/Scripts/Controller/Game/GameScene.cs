@@ -10,23 +10,24 @@ public class GameScene : Singleton<GameScene>
     [Header("Config")]
     public LevelDesign levelDesign;
 
-    // inspector
-    [Space(10)]
+
+    [Space(15)]
     [SerializeField] private Player player;
     [SerializeField] private Transform obstaclePrefab;
     [SerializeField] private Color[] colors;
 
+    [Space(15)]
     [SerializeField] private float minDistanceY = 5f;
     [SerializeField] private float maxDistanceY = 8f;
     [SerializeField] private float maxDistanceX = 2.5f;
 
 
     // private
+    private List<GameObject> obstacleList;
     private GameObject _curObstacle;
     private GameObject _nextObstacle;
-    private List<GameObject> obstacleList;
-    private TurnData _currentTurn;
     private int _currentIndex = 0;
+    private TurnData _currentTurn;
     private Color _curColor;
     private Color _nextColor;
     private bool _hasFinish;
@@ -42,6 +43,18 @@ public class GameScene : Singleton<GameScene>
 
 
     #region UNITY
+    private void OnEnable()
+    {
+        this.RegisterListener(EventID.OnEvent_UpdateScore, UpdateScore);
+        this.RegisterListener(EventID.OnEvent_GameOver, GameOver);
+    }
+
+    private void OnDisable()
+    {
+        this.RemoveListener(EventID.OnEvent_UpdateScore, UpdateScore);
+        this.RemoveListener(EventID.OnEvent_GameOver, GameOver);
+    }
+
     private void Start()
     {
         CacheComponent();
@@ -55,6 +68,7 @@ public class GameScene : Singleton<GameScene>
         }
     }
     #endregion
+
 
 
     public void Init()
@@ -113,9 +127,10 @@ public class GameScene : Singleton<GameScene>
     }
 
 
-    public void UpdateScore()
+    public void UpdateScore(object param)
     {
         _viewInGame.UpdateScore(ScoreManager.Instance.score);
+
     }
 
 
@@ -127,12 +142,16 @@ public class GameScene : Singleton<GameScene>
     }
 
 
-    public void GameOver()
+    public void GameOver(object param)
     {
         ShakeCamera();
-        SoundManager.StopMusic();
+        _hasFinish = true;
 
-        DG.Tweening.DOVirtual.DelayedCall(1f, () => { GameManager.Instance.GameOver(); });
+        SoundManager.StopMusic();
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            GameManager.Instance.GameOver();
+        });
     }
 
 

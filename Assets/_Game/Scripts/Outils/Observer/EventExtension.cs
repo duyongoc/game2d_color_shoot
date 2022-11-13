@@ -8,8 +8,11 @@ public enum EventID
     None = 0,
 
     // score
-    OnChange_ScoreIncrease,
-    OnChange_ScoreDecrease,
+    OnEvent_UpdateScore,
+
+    // game
+    OnEvent_GameOver,
+
 
     // if you need more event, add it here
     // todo
@@ -32,7 +35,7 @@ public static class EventExtension
 
     public static void RegisterListener(this MonoBehaviour listener, EventID eventID, Action<object> callback)
     {
-        EventDispatcher.Instance.RegisterListener(eventID, callback);
+        EventDispatcher.Instance?.RegisterListener(eventID, callback);
     }
 
     public static void RemoveListener(this MonoBehaviour listener, EventID eventID, Action<object> callback)

@@ -27,9 +27,9 @@ public class Obstacle : MonoBehaviour
     // private
     private int _value;
     private Color _color;
-    private Transform _nextObstacle;
-
     private TurnData _turn;
+
+    private Transform _nextObstacle;
     private bool _hasBroken = false;
 
 
@@ -167,9 +167,7 @@ public class Obstacle : MonoBehaviour
     {
         var score = scorePrefab.SpawnToGarbage(transform.position, Quaternion.identity);
         score.GetComponent<TextScore>().Init(newScore, _color);
-
-        ScoreManager.Instance.UpdateScore(newScore);
-        GameScene.Instance.UpdateScore();
+        this.PostEvent(EventID.OnEvent_UpdateScore, newScore);
     }
 
 
@@ -189,7 +187,6 @@ public class Obstacle : MonoBehaviour
         _hasBroken = true;
         textMesh.transform.DOScale(Vector3.zero, 1);
         shields.ForEach(x => x.HideShield());
-
         GameScene.Instance.MovePlayer();
     }
 
@@ -220,8 +217,7 @@ public class Obstacle : MonoBehaviour
         switch (other.tag)
         {
             case "Bullet":
-                ImpactWithBullet(other.GetComponent<Bullet>());
-                break;
+                ImpactWithBullet(other.GetComponent<Bullet>()); break;
         }
     }
 
@@ -229,7 +225,8 @@ public class Obstacle : MonoBehaviour
     {
         switch (other.tag)
         {
-            case "Player": OutsideThePlayer(); break;
+            case "Player":
+                OutsideThePlayer(); break;
         }
     }
 
