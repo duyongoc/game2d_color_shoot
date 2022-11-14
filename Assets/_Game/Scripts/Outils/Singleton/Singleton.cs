@@ -12,7 +12,6 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
     private static T instance;
     private static object _lock = new object();
     private static bool applicationIsQuitting = false;
-
     #endregion
 
     ///
