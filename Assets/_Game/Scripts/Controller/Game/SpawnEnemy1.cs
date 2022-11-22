@@ -21,7 +21,7 @@ public class SpawnEnemy1 : MonoBehaviour
     private List<GameObject> listEnemiesCreated;
     private Timer timeSpawn = new Timer();
     private Transform target;
-    private float moveSpeed;
+    // private float moveSpeed;
 
     private float minRangeSpawn;
     private float maxRangeSpawn;
@@ -130,10 +130,10 @@ public class SpawnEnemy1 : MonoBehaviour
 
     public void Reset()
     {
-        moveSpeed = 0;
         timeSpawn.Reset();
-        // listEnemiesCreated.ForEach(x => x.GetComponent<Enemy>().Reset());
         currentState = SpawnState.Init;
+        // moveSpeed = 0;
+        // listEnemiesCreated.ForEach(x => x.GetComponent<Enemy>().Reset());
     }
 
     private void CacheDefine()

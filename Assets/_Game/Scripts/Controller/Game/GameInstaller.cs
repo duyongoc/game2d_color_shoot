@@ -13,7 +13,7 @@ public class GameInstaller : MonoInstaller
 
         // manager 
         this.Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle().Lazy();
-        this.Container.Bind<GameView>().FromComponentInHierarchy().AsSingle().Lazy();
+        this.Container.Bind<ViewManager>().FromComponentInHierarchy().AsSingle().Lazy();
 
         // view
         this.Container.Bind<ViewLoading>().FromComponentInHierarchy().AsSingle().Lazy();

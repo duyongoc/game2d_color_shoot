@@ -10,10 +10,10 @@ public class GameManager : Singleton<GameManager>
     // public
     public static Action EVENT_RESET_INGAME;
     public GameState gameState = GameState.None;
-
+    public GameBoard gameBoard;
 
     // DI
-    [Inject] private GameView _viewMgr;
+    [Inject] private ViewManager _viewMgr;
 
 
     // properties
@@ -43,7 +43,9 @@ public class GameManager : Singleton<GameManager>
 
     public void PlayGame()
     {
-        GameScene.Instance.Init();
+        // GameScene.Instance.Init();
+        gameBoard.Init();
+
         SetState(GameState.InGame);
         SoundManager.PlayMusic(SoundManager.MUSIC_BACKGROUND);
     }

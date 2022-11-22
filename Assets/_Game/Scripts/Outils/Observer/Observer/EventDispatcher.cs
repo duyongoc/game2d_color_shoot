@@ -5,17 +5,17 @@ using UnityEngine;
 using System.Linq;
 
 
-public class EventDispatcher : Singleton<EventDispatcher>
+public class EventDispatcher : SingletonEvent<EventDispatcher>
 {
-
+    
 
     /// Store all "listener"
     [SerializeField] private bool isShowLog = false;
-    private Dictionary<EventID, Action<object>> _listeners = new Dictionary<EventID, Action<object>>();
+    public Dictionary<EventID, Action<object>> _listeners = new Dictionary<EventID, Action<object>>();
 
 
 
-    /// <summary> Register to listen for eventID /// </summary>
+    /// <summary> Register to listen for eventID </summary>
     /// <param name="eventID">EventID that object want to listen</param>
     /// <param name="callback">Callback will be invoked when this eventID be raised</para	m>
     public void RegisterListener(EventID eventID, Action<object> callback)
@@ -37,7 +37,7 @@ public class EventDispatcher : Singleton<EventDispatcher>
     }
 
 
-    /// <summary> Posts the event. This will notify all listener that register for this event/// </summary>
+    /// <summary> Posts the event. This will notify all listener that register for this event </summary>
     /// <param name="eventID">EventID.</param>
     /// <param name="sender">Sender, in some case, the Listener will need to know who send this message.</param>
     /// <param name="param">Parameter. Can be anything (struct, class ...), Listener will make a cast to get the data</param>
@@ -109,6 +109,12 @@ public class EventDispatcher : Singleton<EventDispatcher>
         {
             Utils.LOG($"Key: {kvp.Key} | with callback: {kvp.Value?.Target}");
         }
+    }
+    
+    [ContextMenu("ShowDebugWindow")]
+    private void ShowDebugWindow()
+    {
+        
     }
 
     [ContextMenu("ShowDebug")]

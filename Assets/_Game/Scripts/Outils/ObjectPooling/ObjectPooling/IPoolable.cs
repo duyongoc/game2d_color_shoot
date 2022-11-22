@@ -1,4 +1,4 @@
-﻿namespace ToolBox.Pools
+﻿namespace Pools
 {
 	public interface IPoolable
 	{

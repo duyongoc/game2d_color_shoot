@@ -27,6 +27,7 @@ public class GameScene : Singleton<GameScene>
     private GameObject _curObstacle;
     private GameObject _nextObstacle;
     private int _currentIndex = 0;
+    
     private TurnData _currentTurn;
     private Color _curColor;
     private Color _nextColor;

@@ -247,15 +247,15 @@ GameObject:
   - component: {fileID: 1790602382015550442}
   - component: {fileID: 1790602381881332712}
   - component: {fileID: 4022331964507160603}
-  - component: {fileID: -7485892018163516985}
-  - component: {fileID: -737258100798285781}
-  - component: {fileID: 5864714668407624211}
-  - component: {fileID: 13296390287662662}
-  - component: {fileID: -1050510870306813898}
-  - component: {fileID: 5803224983506154528}
-  - component: {fileID: -6980340937885856700}
+  - component: {fileID: 1026362560922846026}
+  - component: {fileID: -3111309351372623031}
+  - component: {fileID: 299977414746005998}
+  - component: {fileID: 5096920221385031278}
+  - component: {fileID: -1291807983241620249}
+  - component: {fileID: 4142919602118525843}
+  - component: {fileID: -2671056337867911432}
   m_Layer: 0
-  m_Name: Obstacle
+  m_Name: ObstacleTmp
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,7 +392,7 @@ MonoBehaviour:
   - {fileID: 1790602384599241712}
   aimAnim: {fileID: 1790602382636307436}
   waveAnim: {fileID: 1790602382636307438}
---- !u!114 &-7485892018163516985
+--- !u!114 &1026362560922846026
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isInitialized: 0
---- !u!114 &-737258100798285781
+--- !u!114 &-3111309351372623031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isInitialized: 0
---- !u!114 &5864714668407624211
+--- !u!114 &299977414746005998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isInitialized: 0
---- !u!114 &13296390287662662
+--- !u!114 &5096920221385031278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isInitialized: 0
---- !u!114 &-1050510870306813898
+--- !u!114 &-1291807983241620249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isInitialized: 0
---- !u!114 &5803224983506154528
+--- !u!114 &4142919602118525843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isInitialized: 0
---- !u!114 &-6980340937885856700
+--- !u!114 &-2671056337867911432
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
