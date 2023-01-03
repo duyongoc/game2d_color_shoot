@@ -26,10 +26,6 @@ public class ViewMenu : View
 
     public override void UpdateState()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            GameManager.Instance.PlayGame();
-        }
     }
 
     public override void EndState()
@@ -39,7 +35,16 @@ public class ViewMenu : View
 
 
 
+    public void OnClickedPlayGame()
+    {
+        GameManager.Instance.PlayGame();
+    }
 
+
+    public void OnClickedLeaderBoard()
+    {
+        PlayfabController.Instance.ShowLeaderBoard();
+    }
 
 
 }

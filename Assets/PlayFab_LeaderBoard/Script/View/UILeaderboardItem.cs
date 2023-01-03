@@ -20,7 +20,7 @@ public class UILeaderboardItem : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     [Header("DEBUG")]
     [SerializeField] private ItemLeaderBoardData _data;
-
+    public ItemLeaderBoardData GetData => _data;
 
 
     public void Init(ItemLeaderBoardData newData)
@@ -30,15 +30,12 @@ public class UILeaderboardItem : MonoBehaviour, IPointerEnterHandler, IPointerEx
         txtRanking.text = _data.ranking;
         txtName.text = _data.name;
         txtScore.text = _data.score;
+    }
 
 
-        print($"data {_data.id} - {PlayfabController.Instance.playFabId} " + _data.id.Equals(PlayfabController.Instance.playFabId));
-        
-        switch (_data.id.Equals(PlayfabController.Instance.playFabId))
-        {
-            case true: objMine.SetActive(true); break;
-            case false: objMine.SetActive(false); break;
-        }
+    public void ShowMineBackground(bool value)
+    {
+        objMine.SetActive(value);
     }
 
 

@@ -74,7 +74,7 @@ public class GameScene : Singleton<GameScene>
 
     public void Init()
     {
-        // FirstSpawnObstacle();
+        FirstSpawnObstacle();
     }
 
 
@@ -89,7 +89,7 @@ public class GameScene : Singleton<GameScene>
         obstacleList.Add(_curObstacle);
 
         // create next obstacle
-        // CreateNextObstacle();
+        CreateNextObstacle();
     }
 
 

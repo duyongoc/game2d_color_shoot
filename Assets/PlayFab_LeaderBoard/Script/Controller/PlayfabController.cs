@@ -20,7 +20,7 @@ public class PlayfabController : Singleton<PlayfabController>
     #region UNITY
     private void Start()
     {
-        Init();
+        // Init();
     }
 
     // private void Update()
@@ -40,38 +40,87 @@ public class PlayfabController : Singleton<PlayfabController>
             PlayFabSettings.staticSettings.TitleId = "2E41C";
         }
 
-        RequestLogin();
+        RequestLogin(() => { GetAccountInfo(); });
         uiLeaderboard.Init();
-    }
 
-
-
-    private void RequestLogin()
-    {
-        var request = new LoginWithCustomIDRequest { CustomId = SystemInfo.deviceUniqueIdentifier, CreateAccount = true };
-        PlayFabClientAPI.LoginWithCustomID(request,
-        (result) =>
-        {
-            GetAccountInfo();
-        },
-        (error) =>
-        {
-            Debug.Log(error.GenerateErrorReport());
-        });
 
         // GetLeaderboard();
         // SendLeaderboard(50, "test_1");
     }
 
 
-    private void GetAccountInfo()
+
+    public void ShowLeaderBoard()
     {
-        GetAccountInfoRequest request = new GetAccountInfoRequest();
-        PlayFabClientAPI.GetAccountInfo(request,
+        uiLeaderboard.ShowObjLoading(true);
+        RequestLogin(() =>
+        {
+            uiLeaderboard.ShowObjLoading(false);
+            uiLeaderboard.RefeshLeaderBoard();
+            RequestTopPlayers();
+        });
+    }
+
+
+    private void RequestLogin(Action cbSuccess = null, Action cbFail = null)
+    {
+        // request for login
+        var request = new LoginWithCustomIDRequest { CustomId = SystemInfo.deviceUniqueIdentifier, CreateAccount = true };
+        PlayFabClientAPI.LoginWithCustomID(request,
+        (result) =>
+        {
+            cbSuccess?.Invoke();
+        },
+        (error) =>
+        {
+            Debug.Log(error.GenerateErrorReport());
+            cbFail?.Invoke();
+        });
+    }
+
+
+    public void RequestTopPlayers()
+    {
+        // create request and get 10 top players
+        var request = new GetLeaderboardRequest
+        {
+            StatisticName = PlayfabController.Instance.leaderboard,
+            StartPosition = 0,
+            MaxResultsCount = 10
+        };
+
+        // get leader board and show it
+        PlayFabClientAPI.GetLeaderboard(request,
+        (result) =>
+        {
+            ShowTopPlayers(result.Leaderboard);
+        },
+        (error) =>
+        {
+            Debug.Log(error.GenerateErrorReport());
+        });
+    }
+
+
+    private void ShowTopPlayers(List<PlayerLeaderboardEntry> board)
+    {
+        for (int index = 0; index <= board.Count - 1; index++)
+        {
+            uiLeaderboard.CreateItemPlayer(board[index], index);
+        }
+
+        // check if user on the leader board
+        GetAccountInfo((x) => { uiLeaderboard.CheckMeOnLeaderBoard(x); });
+    }
+
+
+    private void GetAccountInfo(Action<string> cbSuccess = null)
+    {
+        PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
         (result) =>
         {
             playFabId = result.AccountInfo.PlayFabId;
-            // uiLeaderboard.ShowLeaderBoard();
+            cbSuccess?.Invoke(playFabId);
         },
         (error) =>
         {

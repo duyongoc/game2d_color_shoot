@@ -43,8 +43,8 @@ public class GameManager : Singleton<GameManager>
 
     public void PlayGame()
     {
-        // GameScene.Instance.Init();
-        gameBoard.Init();
+        GameScene.Instance.Init();
+        // gameBoard.Init();
 
         SetState(GameState.InGame);
         SoundManager.PlayMusic(SoundManager.MUSIC_BACKGROUND);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using PlayFab;
 using PlayFab.ClientModels;
 using TMPro;
@@ -17,6 +18,7 @@ public class UILeaderboard : MonoBehaviour
     [Header("Leader Board")]
     [SerializeField] private Transform contentLeaderBoard;
     [SerializeField] private UILeaderboardItem itemPrefab;
+    [SerializeField] private List<UILeaderboardItem> itemCaches;
 
     [Header("Pop up input name")]
     [SerializeField] private GameObject uiPopup;
@@ -28,7 +30,7 @@ public class UILeaderboard : MonoBehaviour
     #region UNITY
     private void Start()
     {
-        // Init();
+        Init();
     }
 
     // private void Update()
@@ -45,49 +47,38 @@ public class UILeaderboard : MonoBehaviour
     }
 
 
-    private void ShowYourScore()
+    public void RefeshLeaderBoard()
     {
-        PlayfabController.Instance.GetDisplayName((name) =>
-        {
-            print("boom " + name);
-            txtYourScore.text = $"Your name - {name}: {PlayfabController.Instance.currentScore}";
-        });
+        // clear old item cache
+        itemCaches.ForEach(x => { if (x != null) Destroy(x.gameObject); });
+        itemCaches.Clear();
+
+        ShowObjLeaderBoard(true);
     }
 
 
-    public void ShowLeaderBoard()
+    public void CreateItemPlayer(PlayerLeaderboardEntry player, int index)
     {
-        // Init();
-        // RefeshLeaderBoard();
+        // get value
+        var id = player.PlayFabId;
+        var ranking = (index + 1).ToString();
+        var name = player.DisplayName;
+        var score = player.StatValue.ToString();
 
-        var request = new GetLeaderboardRequest
+        // show item
+        var item = Instantiate(itemPrefab, contentLeaderBoard);
+        item.Init(new ItemLeaderBoardData(id, ranking, name, score));
+        itemCaches.Add(item);
+    }
+
+
+    public void CheckMeOnLeaderBoard(string id)
+    {
+        var mine = itemCaches.Find(x => x.GetData.id.Equals(id));
+        if (mine != null)
         {
-            StatisticName = PlayfabController.Instance.leaderboard,
-            StartPosition = 0,
-            MaxResultsCount = 10
-        };
-
-        PlayFabClientAPI.GetLeaderboard(request,
-        (result) =>
-        {
-            // get leader board and show it
-            var board = result.Leaderboard;
-
-            for (int i = 0; i <= board.Count - 1; i++)
-            {
-                // get value
-                var id = board[i].PlayFabId;
-                var ranking = (i + 1).ToString();
-                var name = board[i].DisplayName;
-                var score = board[i].StatValue.ToString();
-
-                // show item
-                var item = Instantiate(itemPrefab, contentLeaderBoard);
-                item.Init(new ItemLeaderBoardData(id, ranking, name, score));
-            }
-
-        },
-        (error) => { });
+            mine.ShowMineBackground(true);
+        }
     }
 
 
@@ -116,6 +107,15 @@ public class UILeaderboard : MonoBehaviour
         // });
     }
 
+    private void ShowYourScore()
+    {
+        PlayfabController.Instance.GetDisplayName((name) =>
+        {
+            print("boom " + name);
+            txtYourScore.text = $"Your name - {name}: {PlayfabController.Instance.currentScore}";
+        });
+    }
+
 
     public void ShowObjLeaderBoard(bool value)
     {
@@ -135,13 +135,11 @@ public class UILeaderboard : MonoBehaviour
     }
 
 
-
-    private void RefeshLeaderBoard()
+    public void OnClickButtonExit()
     {
-        foreach (Transform child in contentLeaderBoard.transform)
-        {
-            if (child != null) Destroy(child.gameObject);
-        }
+        ShowObjLeaderBoard(false);
+        ShowObjUpdateInfo(false);
+        ShowObjLoading(false);
     }
 
 

@@ -78,6 +78,10 @@ namespace PlayFab.PfEditor
                 method = "POST"
             };
 
+            //Add these two lines
+            www.disposeUploadHandlerOnDispose = true;
+            www.disposeDownloadHandlerOnDispose = true;
+
             foreach (var header in headers)
             {
                 if (!string.IsNullOrEmpty(header.Key) && !string.IsNullOrEmpty(header.Value))
@@ -177,6 +181,8 @@ namespace PlayFab.PfEditor
                     errorCallback(www.error);
                 else
                     callBack(www.downloadHandler.text);
+
+                www.Dispose();
             }
             else
             {
