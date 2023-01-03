@@ -2,22 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using PlayFab;
 using PlayFab.ClientModels;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UILeaderboard : MonoBehaviour
 {
 
+    [Header("Leader Board")]
+    [SerializeField] private GameObject objLeaderBoard;
+    [SerializeField] private GameObject objUpdateInfo;
+    [SerializeField] private GameObject objLoading;
 
     [Header("Leader Board")]
-    public Transform contentLeaderBoard;
-    public UILeaderboardItem itemPrefab;
+    [SerializeField] private Transform contentLeaderBoard;
+    [SerializeField] private UILeaderboardItem itemPrefab;
 
     [Header("Pop up input name")]
-    public GameObject uiPopup;
-    public InputField inputName;
-    public Text txtYourScore;
-    public Text txtInfomation;
+    [SerializeField] private GameObject uiPopup;
+    [SerializeField] private TMP_InputField inputName;
+    [SerializeField] private TMP_Text txtYourScore;
+    [SerializeField] private TMP_Text txtInfomation;
 
 
     #region UNITY
@@ -32,11 +37,11 @@ public class UILeaderboard : MonoBehaviour
     #endregion
 
 
-    private void Init()
+    public void Init()
     {
-        ShowPopup(false);
-        ShowYourScore();
-        txtInfomation.gameObject.SetActive(false);
+        ShowObjLeaderBoard(false);
+        ShowObjUpdateInfo(false);
+        ShowObjLoading(false);
     }
 
 
@@ -57,7 +62,7 @@ public class UILeaderboard : MonoBehaviour
 
         var request = new GetLeaderboardRequest
         {
-            StatisticName = PlayfabController.Instance.leaderboardName,
+            StatisticName = PlayfabController.Instance.leaderboard,
             StartPosition = 0,
             MaxResultsCount = 10
         };
@@ -100,32 +105,51 @@ public class UILeaderboard : MonoBehaviour
             return;
         }
 
-        ShowTextLoading();
+        // ShowTextLoading();
 
-        var currentScore = PlayfabController.Instance.currentScore;
-        PlayfabController.Instance.SetDisplayName(inputName.text);
-        PlayfabController.Instance.SendLeaderboard(currentScore, () =>
-        {
-            ShowTextPostSucces();
-            ShowLeaderBoard();
-        });
+        // var currentScore = PlayfabController.Instance.currentScore;
+        // PlayfabController.Instance.SetDisplayName(inputName.text);
+        // PlayfabController.Instance.SendLeaderboard(currentScore, () =>
+        // {
+        //     ShowTextPostSucces();
+        //     ShowLeaderBoard();
+        // });
     }
+
+
+    public void ShowObjLeaderBoard(bool value)
+    {
+        objLeaderBoard.SetActive(value);
+    }
+
+
+    public void ShowObjUpdateInfo(bool value)
+    {
+        objUpdateInfo.SetActive(value);
+    }
+
+
+    public void ShowObjLoading(bool value)
+    {
+        objLoading.SetActive(value);
+    }
+
 
 
     private void RefeshLeaderBoard()
     {
         foreach (Transform child in contentLeaderBoard.transform)
         {
-            if (child != null)
-                Destroy(child.gameObject);
+            if (child != null) Destroy(child.gameObject);
         }
-
     }
+
 
     private void ShowPopup(bool value)
     {
         uiPopup.SetActive(value);
     }
+
 
     private void ShowTextWrongName()
     {
@@ -134,12 +158,14 @@ public class UILeaderboard : MonoBehaviour
         txtInfomation.color = Color.red;
     }
 
+
     private void ShowTextPostSucces()
     {
         txtInfomation.gameObject.SetActive(true);
         txtInfomation.text = "Post score success!";
         txtInfomation.color = Color.green;
     }
+
 
     private void ShowTextLoading()
     {

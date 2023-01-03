@@ -9,9 +9,9 @@ public class PlayfabController : Singleton<PlayfabController>
 {
 
     [Header("[Setting]")]
-    public string playFabId = "NotSet";
-    public string leaderboardName;
     public int currentScore;
+    public string leaderboard;
+    public string playFabId;
 
     [Space]
     [SerializeField] private UILeaderboard uiLeaderboard;
@@ -41,6 +41,7 @@ public class PlayfabController : Singleton<PlayfabController>
         }
 
         RequestLogin();
+        uiLeaderboard.Init();
     }
 
 
@@ -51,14 +52,15 @@ public class PlayfabController : Singleton<PlayfabController>
         PlayFabClientAPI.LoginWithCustomID(request,
         (result) =>
         {
-            // GetLeaderboard();
-            // SendLeaderboard(20, "test_2");
             GetAccountInfo();
         },
         (error) =>
         {
             Debug.Log(error.GenerateErrorReport());
         });
+
+        // GetLeaderboard();
+        // SendLeaderboard(50, "test_1");
     }
 
 
@@ -69,7 +71,7 @@ public class PlayfabController : Singleton<PlayfabController>
         (result) =>
         {
             playFabId = result.AccountInfo.PlayFabId;
-            uiLeaderboard.ShowLeaderBoard();
+            // uiLeaderboard.ShowLeaderBoard();
         },
         (error) =>
         {
@@ -120,18 +122,18 @@ public class PlayfabController : Singleton<PlayfabController>
     }
 
 
-    public void SendLeaderboard(int score, Action cb_success = null)
-    {
-        var request = new UpdatePlayerStatisticsRequest
-        {
-            Statistics = new List<StatisticUpdate> { new StatisticUpdate { StatisticName = leaderboardName, Value = score } }
-        };
+    // public void SendLeaderboard(int score, Action cb_success = null)
+    // {
+    //     var request = new UpdatePlayerStatisticsRequest
+    //     {
+    //         Statistics = new List<StatisticUpdate> { new StatisticUpdate { StatisticName = leaderboard, Value = score } }
+    //     };
 
-        // send request for update score
-        PlayFabClientAPI.UpdatePlayerStatistics(request,
-        (result) => { cb_success?.Invoke(); },
-        (error) => Debug.LogError(error.GenerateErrorReport()));
-    }
+    //     // send request for update score
+    //     PlayFabClientAPI.UpdatePlayerStatistics(request,
+    //     (result) => { cb_success?.Invoke(); },
+    //     (error) => Debug.LogError(error.GenerateErrorReport()));
+    // }
 
 
     public void SendLeaderboard(int score, string name, Action cb_success = null)
@@ -142,7 +144,7 @@ public class PlayfabController : Singleton<PlayfabController>
         // create update request
         var request = new UpdatePlayerStatisticsRequest
         {
-            Statistics = new List<StatisticUpdate> { new StatisticUpdate { StatisticName = leaderboardName, Value = score } }
+            Statistics = new List<StatisticUpdate> { new StatisticUpdate { StatisticName = leaderboard, Value = score } }
         };
 
         // send request for update score
@@ -156,7 +158,7 @@ public class PlayfabController : Singleton<PlayfabController>
     {
         var request = new GetLeaderboardRequest
         {
-            StatisticName = leaderboardName,
+            StatisticName = leaderboard,
             StartPosition = 0,
             MaxResultsCount = 20
         };

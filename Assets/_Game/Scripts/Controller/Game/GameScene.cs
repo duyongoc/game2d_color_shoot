@@ -63,10 +63,10 @@ public class GameScene : Singleton<GameScene>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            CreateNextObstacle();
-        }
+        // if (Input.GetKeyDown(KeyCode.A))
+        // {
+        //     CreateNextObstacle();
+        // }
     }
     #endregion
 
@@ -74,7 +74,7 @@ public class GameScene : Singleton<GameScene>
 
     public void Init()
     {
-        FirstSpawnObstacle();
+        // FirstSpawnObstacle();
     }
 
 
@@ -89,7 +89,7 @@ public class GameScene : Singleton<GameScene>
         obstacleList.Add(_curObstacle);
 
         // create next obstacle
-        CreateNextObstacle();
+        // CreateNextObstacle();
     }
 
 

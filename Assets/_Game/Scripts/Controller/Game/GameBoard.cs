@@ -22,11 +22,11 @@ public class GameBoard : MonoBehaviour
     [SerializeField] private float maxDistanceX = 2.5f;
 
 
-    // private
-    private List<GameObject> obstacleList;
-    private GameObject _curObstacle;
-    private GameObject _nextObstacle;
-    private int _currentIndex = 0;
+    [Header("DEBUG")]
+    [SerializeField] private List<GameObject> obstacleList;
+    [SerializeField] private GameObject _curObstacle;
+    [SerializeField] private GameObject _nextObstacle;
+    [SerializeField] private int _currentIndex = 0;
 
     private TurnData _currentTurn;
     private Color _curColor;
@@ -43,13 +43,11 @@ public class GameBoard : MonoBehaviour
 
     public void Init()
     {
-        print("Init");
-        obstaclePrefab.InitPoolPrefab(10, transform);
-        objectPrefab.InitPoolPrefab(10, transform);
+        // obstaclePrefab.InitPoolPrefab(10, transform);
+        // objectPrefab.InitPoolPrefab(10, transform);
         // obstaclePrefab.Reuse();
-        // FirstSpawnObstacle();
-
-        Debug.Log(obstaclePrefab.Reuse());
+        // Debug.Log(obstaclePrefab.Reuse());
+        FirstSpawnObstacle();
     }
 
 
@@ -59,14 +57,12 @@ public class GameBoard : MonoBehaviour
         _curColor = colors[Random.Range(0, colors.Length)];
         player.SetPlayer(_curColor);
 
+        _curObstacle = obstaclePrefab.SpawnToGarbage(player.transform.position, Quaternion.identity);
+        _curObstacle.GetComponent<Obstacle>().InitObstacle(_curColor, null, true);
+        obstacleList.Add(_curObstacle);
 
-
-        // _curObstacle = obstaclePrefab.SpawnToGarbage(player.transform.position, Quaternion.identity);
-        // _curObstacle.GetComponent<Obstacle>().InitObstacle(_curColor, null, true);
-        // obstacleList.Add(_curObstacle);
-
-        // // create next obstacle
-        // CreateNextObstacle();
+        // create next obstacle
+        CreateNextObstacle();
     }
 
 
