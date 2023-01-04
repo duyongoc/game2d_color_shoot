@@ -36,6 +36,7 @@ public class UILeaderboardItem : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void ShowMineBackground(bool value)
     {
         objMine.SetActive(value);
+        if (value == true) txtName.text += " (you)";
     }
 
 

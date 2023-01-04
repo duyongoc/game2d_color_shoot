@@ -9,12 +9,17 @@ public class PlayfabController : Singleton<PlayfabController>
 {
 
     [Header("[Setting]")]
-    public int currentScore;
-    public string leaderboard;
-    public string playFabId;
+    [SerializeField] private int currentScore;
+    [SerializeField] private string leaderboard;
+    [SerializeField] private string playFabId;
 
     [Space]
     [SerializeField] private UILeaderboard uiLeaderboard;
+
+
+    // [properties]
+    public int CurrentScore { get => currentScore; set => currentScore = value; }
+
 
 
     #region UNITY
@@ -55,7 +60,6 @@ public class PlayfabController : Singleton<PlayfabController>
         uiLeaderboard.ShowObjLoading(true);
         RequestLogin(() =>
         {
-            uiLeaderboard.ShowObjLoading(false);
             uiLeaderboard.RefeshLeaderBoard();
             RequestTopPlayers();
         });
@@ -94,6 +98,7 @@ public class PlayfabController : Singleton<PlayfabController>
         (result) =>
         {
             ShowTopPlayers(result.Leaderboard);
+            uiLeaderboard.ShowObjLoading(false);
         },
         (error) =>
         {

@@ -112,7 +112,7 @@ public class UILeaderboard : MonoBehaviour
         PlayfabController.Instance.GetDisplayName((name) =>
         {
             print("boom " + name);
-            txtYourScore.text = $"Your name - {name}: {PlayfabController.Instance.currentScore}";
+            txtYourScore.text = $"Your name - {name}: {PlayfabController.Instance.CurrentScore}";
         });
     }
 
