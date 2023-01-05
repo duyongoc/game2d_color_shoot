@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class PlayfabController : Singleton<PlayfabController>
 {
 
     [Header("[Setting]")]
+    [SerializeField] private int minimumScore;
     [SerializeField] private int currentScore;
     [SerializeField] private string leaderboard;
     [SerializeField] private string playFabId;
@@ -45,16 +47,26 @@ public class PlayfabController : Singleton<PlayfabController>
             PlayFabSettings.staticSettings.TitleId = "2E41C";
         }
 
-        RequestLogin(() => { GetAccountInfo(); });
-        uiLeaderboard.Init();
+        //
+        uiLeaderboard.ReLoad();
+        RequestLogin(() =>
+        {
+            GetAccountInfo();
+            GetMinimumScoreLeaderboard();
+            uiLeaderboard.ShowObjUpdateInfo(true);
+        });
 
-        // GetLeaderboard();
+        // SendLeaderboard(50, "test_4");
     }
 
 
-    public void RecordScore()
+    public void CheckShowRecordScore(int score)
     {
-        
+        if (minimumScore <= score)
+            return;
+
+        currentScore = score;
+        uiLeaderboard.ShowObjUpdateInfo(true);
     }
 
 
@@ -127,9 +139,6 @@ public class PlayfabController : Singleton<PlayfabController>
         PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
         (result) =>
         {
-            print("GetAccountInfo");
-            // SendLeaderboard(50, "test_4");
-            
             playFabId = result.AccountInfo.PlayFabId;
             cbSuccess?.Invoke(playFabId);
         },
@@ -214,7 +223,7 @@ public class PlayfabController : Singleton<PlayfabController>
     }
 
 
-    public void GetLeaderboard()
+    public void GetMinimumScoreLeaderboard()
     {
         var request = new GetLeaderboardRequest
         {
@@ -226,10 +235,7 @@ public class PlayfabController : Singleton<PlayfabController>
         PlayFabClientAPI.GetLeaderboard(request,
         result =>
         {
-            result.Leaderboard.ForEach(x =>
-            {
-                Debug.Log($"x position{x.Position} {x.DisplayName} {x.StatValue}");
-            });
+            minimumScore = result.Leaderboard.Last().StatValue;
         },
         error => Debug.LogError(error.GenerateErrorReport()));
     }

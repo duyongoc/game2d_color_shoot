@@ -30,15 +30,11 @@ public class ViewGameOver : View
     #region STATE
     public override void StartState()
     {
-        ShowScore();
+        LoadView();
     }
 
     public override void UpdateState()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            GameManager.Instance.ReplayGame();
-        }
     }
 
     public override void EndState()
@@ -47,10 +43,19 @@ public class ViewGameOver : View
     #endregion
 
 
-    private void ShowScore()
+
+
+    private void LoadView()
     {
         int score = ScoreManager.Instance.score;
         textHighScore.text = score.ToString();
+        PlayfabController.Instance.CheckShowRecordScore(score);
+    }
+
+
+    public void OnClickButtonReplay()
+    {
+        GameManager.Instance.ReplayGame();
     }
 
 

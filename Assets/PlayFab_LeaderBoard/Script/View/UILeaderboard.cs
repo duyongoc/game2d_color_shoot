@@ -27,11 +27,11 @@ public class UILeaderboard : MonoBehaviour
     [SerializeField] private TMP_Text txtInfomation;
 
 
+
     #region UNITY
-    private void Start()
-    {
-        Init();
-    }
+    // private void Start()
+    // {
+    // }
 
     // private void Update()
     // {
@@ -39,7 +39,8 @@ public class UILeaderboard : MonoBehaviour
     #endregion
 
 
-    public void Init()
+
+    public void ReLoad()
     {
         ShowObjLeaderBoard(false);
         ShowObjUpdateInfo(false);
@@ -53,6 +54,8 @@ public class UILeaderboard : MonoBehaviour
         itemCaches.ForEach(x => { if (x != null) Destroy(x.gameObject); });
         itemCaches.Clear();
 
+        // show info
+        ShowObjUpdateInfo(false);
         ShowObjLeaderBoard(true);
     }
 
@@ -83,13 +86,7 @@ public class UILeaderboard : MonoBehaviour
     }
 
 
-    public void OnClickButtonPostScore()
-    {
-        ShowPopup(true);
-    }
-
-
-    public void OnClickButtonPost()
+    public void UpdateUserScore()
     {
         if (string.IsNullOrEmpty(inputName.text))
         {
@@ -97,23 +94,22 @@ public class UILeaderboard : MonoBehaviour
             return;
         }
 
-        // ShowTextLoading();
-
-        // var currentScore = PlayfabController.Instance.currentScore;
-        // PlayfabController.Instance.SetDisplayName(inputName.text);
-        // PlayfabController.Instance.SendLeaderboard(currentScore, () =>
-        // {
-        //     ShowTextPostSucces();
-        //     ShowLeaderBoard();
-        // });
+        ShowTextLoading();
+        var currentScore = PlayfabController.Instance.CurrentScore;
+        PlayfabController.Instance.SendLeaderboard(currentScore, inputName.text, () =>
+        {
+            ShowTextUpdateSucces();
+            PlayfabController.Instance.ShowLeaderBoard();
+        });
     }
 
-    private void ShowYourScore()
+
+    private void ShowYourNameAndScore()
     {
+        txtYourScore.text = string.Empty;
         PlayfabController.Instance.GetDisplayName((name) =>
         {
-            print("boom " + name);
-            txtYourScore.text = $"Your name - {name}: {PlayfabController.Instance.CurrentScore}";
+            txtYourScore.text = $"Your name: {name} - score: {PlayfabController.Instance.CurrentScore}";
         });
     }
 
@@ -127,6 +123,7 @@ public class UILeaderboard : MonoBehaviour
     public void ShowObjUpdateInfo(bool value)
     {
         objUpdateInfo.SetActive(value);
+        if(value) ShowYourNameAndScore();
     }
 
 
@@ -150,6 +147,18 @@ public class UILeaderboard : MonoBehaviour
     }
 
 
+    public void OnClickButtonUpdate()
+    {
+        UpdateUserScore();
+    }
+
+
+    public void OnClickButtonCancel()
+    {
+        ReLoad();
+    }
+
+
     private void ShowTextWrongName()
     {
         txtInfomation.gameObject.SetActive(true);
@@ -158,7 +167,7 @@ public class UILeaderboard : MonoBehaviour
     }
 
 
-    private void ShowTextPostSucces()
+    private void ShowTextUpdateSucces()
     {
         txtInfomation.gameObject.SetActive(true);
         txtInfomation.text = "Post score success!";
