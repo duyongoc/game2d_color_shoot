@@ -25,7 +25,7 @@ public class PlayfabController : Singleton<PlayfabController>
     #region UNITY
     private void Start()
     {
-        // Init();
+        Init();
     }
 
     // private void Update()
@@ -48,11 +48,14 @@ public class PlayfabController : Singleton<PlayfabController>
         RequestLogin(() => { GetAccountInfo(); });
         uiLeaderboard.Init();
 
-
         // GetLeaderboard();
-        // SendLeaderboard(50, "test_1");
     }
 
+
+    public void RecordScore()
+    {
+        
+    }
 
 
     public void ShowLeaderBoard()
@@ -124,6 +127,9 @@ public class PlayfabController : Singleton<PlayfabController>
         PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
         (result) =>
         {
+            print("GetAccountInfo");
+            // SendLeaderboard(50, "test_4");
+            
             playFabId = result.AccountInfo.PlayFabId;
             cbSuccess?.Invoke(playFabId);
         },

@@ -75,6 +75,7 @@ public class UILeaderboard : MonoBehaviour
     public void CheckMeOnLeaderBoard(string id)
     {
         var mine = itemCaches.Find(x => x.GetData.id.Equals(id));
+        print($"id {id} mine: {mine}");
         if (mine != null)
         {
             mine.ShowMineBackground(true);
