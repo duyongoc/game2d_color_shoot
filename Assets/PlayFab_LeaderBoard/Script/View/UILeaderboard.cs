@@ -16,6 +16,7 @@ public class UILeaderboard : MonoBehaviour
     [SerializeField] private GameObject objLoading;
 
     [Header("Leader Board")]
+    [SerializeField] private int scrollOffet = 10;
     [SerializeField] private Transform contentLeaderBoard;
     [SerializeField] private UILeaderboardItem itemPrefab;
     [SerializeField] private List<UILeaderboardItem> itemCaches;
@@ -72,6 +73,10 @@ public class UILeaderboard : MonoBehaviour
         var item = Instantiate(itemPrefab, contentLeaderBoard);
         item.Init(new ItemLeaderBoardData(id, ranking, name, score));
         itemCaches.Add(item);
+
+        // increase view size user_character list 
+        var rectTran = contentLeaderBoard.AsRectTransform();
+        rectTran.sizeDelta = new Vector2(rectTran.sizeDelta.x, rectTran.sizeDelta.y + scrollOffet);
     }
 
 
@@ -123,7 +128,7 @@ public class UILeaderboard : MonoBehaviour
     public void ShowObjUpdateInfo(bool value)
     {
         objUpdateInfo.SetActive(value);
-        if(value) ShowYourNameAndScore();
+        if (value) ShowYourNameAndScore();
     }
 
 
