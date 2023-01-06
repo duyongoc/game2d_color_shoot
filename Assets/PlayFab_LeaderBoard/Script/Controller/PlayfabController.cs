@@ -10,16 +10,21 @@ public class PlayfabController : Singleton<PlayfabController>
 {
 
     [Header("[Setting]")]
-    [SerializeField] private int minimumScore;
-    [SerializeField] private int currentScore;
     [SerializeField] private string leaderboard;
+    [SerializeField] private int currentScore;
+
+    [Header("[User information]")]
     [SerializeField] private string playFabId;
+    [SerializeField] private string userName;
+    [SerializeField] private int highScore;
 
     [Space]
     [SerializeField] private UILeaderboard uiLeaderboard;
 
 
     // [properties]
+    public string UserName { get => userName; set => userName = value; }
+    public int HighScore { get => highScore; set => highScore = value; }
     public int CurrentScore { get => currentScore; set => currentScore = value; }
 
 
@@ -51,18 +56,43 @@ public class PlayfabController : Singleton<PlayfabController>
         uiLeaderboard.ReLoad();
         RequestLogin(() =>
         {
-            GetAccountInfo();
-            GetMinimumScoreLeaderboard();
-            uiLeaderboard.ShowObjUpdateInfo(true);
-        });
+            GetUserCurrentRanking();
 
-        // SendLeaderboard(50, "test_4");
+            // GetAccountInfo();
+            // GetMinimumScoreLeaderboard();
+            // SendLeaderboard(10, "test_bum");
+        });
+    }
+
+
+    public void GetUserCurrentRanking(Action cbSuccess = null)
+    {
+        var request = new GetLeaderboardAroundPlayerRequest
+        {
+            StatisticName = leaderboard,
+            MaxResultsCount = 1,
+        };
+
+        PlayFabClientAPI.GetLeaderboardAroundPlayer(request,
+        (result) =>
+        {
+            foreach (var entry in result.Leaderboard)
+            {
+                print($"entry {entry.DisplayName} | {entry.StatValue} | {entry.PlayFabId}");
+                playFabId = entry.PlayFabId;
+                userName = entry.DisplayName;
+                highScore = entry.StatValue;
+                cbSuccess?.Invoke();
+            }
+        },
+        (error) => Debug.Log(error.GenerateErrorReport()));
     }
 
 
     public void CheckShowRecordScore(int score)
     {
-        if (minimumScore <= score)
+        print($"minimumScore: {highScore} | score: {score}");
+        if (highScore >= score)
             return;
 
         currentScore = score;
@@ -73,10 +103,16 @@ public class PlayfabController : Singleton<PlayfabController>
     public void ShowLeaderBoard()
     {
         uiLeaderboard.ShowObjLoading(true);
+
+        // request for the user login 
         RequestLogin(() =>
         {
-            uiLeaderboard.RefeshLeaderBoard();
-            RequestTopPlayers();
+            // get ranking of user
+            GetUserCurrentRanking(() =>
+            {
+                uiLeaderboard.RefeshLeaderBoard();
+                RequestTopPlayers();
+            });
         });
     }
 
@@ -130,79 +166,9 @@ public class PlayfabController : Singleton<PlayfabController>
         }
 
         // check if user on the leader board
-        GetAccountInfo((x) => { uiLeaderboard.CheckMeOnLeaderBoard(x); });
+        uiLeaderboard.CheckMeOnLeaderBoard(playFabId);
     }
 
-
-    private void GetAccountInfo(Action<string> cbSuccess = null)
-    {
-        PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
-        (result) =>
-        {
-            playFabId = result.AccountInfo.PlayFabId;
-            cbSuccess?.Invoke(playFabId);
-        },
-        (error) =>
-        {
-            Debug.Log(error.GenerateErrorReport());
-        });
-    }
-
-
-    public void GetPlayerProfile()
-    {
-        PlayFabClientAPI.GetPlayerProfile(new GetPlayerProfileRequest()
-        {
-            PlayFabId = playFabId,
-            ProfileConstraints = new PlayerProfileViewConstraints() { ShowDisplayName = true }
-        },
-        (result) =>
-        {
-            Debug.Log("The player's DisplayName profile data is: " + result.PlayerProfile);
-        },
-        (error) =>
-        {
-            Debug.Log(error.GenerateErrorReport());
-        });
-    }
-
-
-    public void GetDisplayName(Action<string> cb_success = null)
-    {
-        PlayFabClientAPI.GetPlayerProfile(new GetPlayerProfileRequest()
-        {
-            PlayFabId = playFabId,
-            ProfileConstraints = new PlayerProfileViewConstraints() { ShowDisplayName = true }
-        },
-        (result) =>
-        {
-            cb_success?.Invoke(result.PlayerProfile.DisplayName);
-        },
-        (error) => { Debug.LogError(error.GenerateErrorReport()); });
-    }
-
-
-    public void SetDisplayName(string name)
-    {
-        var requestName = new UpdateUserTitleDisplayNameRequest { DisplayName = name, };
-        PlayFabClientAPI.UpdateUserTitleDisplayName(requestName,
-        (result) => { },
-        (error) => { Debug.LogError(error.GenerateErrorReport()); });
-    }
-
-
-    // public void SendLeaderboard(int score, Action cb_success = null)
-    // {
-    //     var request = new UpdatePlayerStatisticsRequest
-    //     {
-    //         Statistics = new List<StatisticUpdate> { new StatisticUpdate { StatisticName = leaderboard, Value = score } }
-    //     };
-
-    //     // send request for update score
-    //     PlayFabClientAPI.UpdatePlayerStatistics(request,
-    //     (result) => { cb_success?.Invoke(); },
-    //     (error) => Debug.LogError(error.GenerateErrorReport()));
-    // }
 
 
     public void SendLeaderboard(int score, string name, Action cb_success = null)
@@ -218,29 +184,115 @@ public class PlayfabController : Singleton<PlayfabController>
 
         // send request for update score
         PlayFabClientAPI.UpdatePlayerStatistics(request,
-        (result) => { cb_success?.Invoke(); },
+        (result) =>
+        {
+            Debug.Log($"SendLeaderboard success with name: {name} | score: {score}");
+            cb_success?.Invoke();
+        },
         (error) => Debug.LogError(error.GenerateErrorReport()));
     }
 
 
-    public void GetMinimumScoreLeaderboard()
+    public void SetDisplayName(string name)
     {
-        var request = new GetLeaderboardRequest
-        {
-            StatisticName = leaderboard,
-            StartPosition = 0,
-            MaxResultsCount = 20
-        };
-
-        PlayFabClientAPI.GetLeaderboard(request,
-        result =>
-        {
-            minimumScore = result.Leaderboard.Last().StatValue;
-        },
-        error => Debug.LogError(error.GenerateErrorReport()));
+        var requestName = new UpdateUserTitleDisplayNameRequest { DisplayName = name, };
+        PlayFabClientAPI.UpdateUserTitleDisplayName(requestName,
+        (result) => { },
+        (error) => { Debug.LogError(error.GenerateErrorReport()); });
     }
 
 
+    // private void GetAccountInfo(Action<string> cbSuccess = null)
+    // {
+    //     PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
+    //     (result) =>
+    //     {
+    //         playFabId = result.AccountInfo.PlayFabId;
+    //         cbSuccess?.Invoke(playFabId);
+    //     },
+    //     (error) =>
+    //     {
+    //         Debug.Log(error.GenerateErrorReport());
+    //     });
+    // }
 
+
+    // public void GetPlayerProfile()
+    // {
+    //     PlayFabClientAPI.GetPlayerProfile(new GetPlayerProfileRequest()
+    //     {
+    //         PlayFabId = playFabId,
+    //         ProfileConstraints = new PlayerProfileViewConstraints() { ShowDisplayName = true }
+    //     },
+    //     (result) =>
+    //     {
+    //         Debug.Log("The player's DisplayName profile data is: " + result.PlayerProfile);
+    //     },
+    //     (error) =>
+    //     {
+    //         Debug.Log(error.GenerateErrorReport());
+    //     });
+    // }
+
+
+    // public void GetDisplayName(Action<string> cb_success = null)
+    // {
+    //     PlayFabClientAPI.GetPlayerProfile(new GetPlayerProfileRequest()
+    //     {
+    //         PlayFabId = playFabId,
+    //         ProfileConstraints = new PlayerProfileViewConstraints() { ShowDisplayName = true }
+    //     },
+    //     (result) =>
+    //     {
+    //         var num = result.PlayerProfile.Statistics[0].Value;
+    //         cb_success?.Invoke(result.PlayerProfile.DisplayName);
+    //     },
+    //     (error) => { Debug.LogError(error.GenerateErrorReport()); });
+    // }
+
+
+    // public void SendLeaderboard(int score, Action cb_success = null)
+    // {
+    //     var request = new UpdatePlayerStatisticsRequest
+    //     {
+    //         Statistics = new List<StatisticUpdate> { new StatisticUpdate { StatisticName = leaderboard, Value = score } }
+    //     };
+    //     // send request for update score
+    //     PlayFabClientAPI.UpdatePlayerStatistics(request,
+    //     (result) => { cb_success?.Invoke(); },
+    //     (error) => Debug.LogError(error.GenerateErrorReport()));
+    // }
+
+
+    // public void GetMinimumScoreLeaderboard()
+    // {
+    //     var request = new GetLeaderboardRequest
+    //     {
+    //         StatisticName = leaderboard,
+    //         StartPosition = 0,
+    //         MaxResultsCount = 20
+    //     };
+    //     PlayFabClientAPI.GetLeaderboard(request,
+    //     result =>
+    //     {
+    //         minimumScore = result.Leaderboard.Last().StatValue;
+    //     },
+    //     error => Debug.LogError(error.GenerateErrorReport()));
+    // }
+
+
+    // PlayFabClientAPI.GetPlayerStatistics(new GetPlayerStatisticsRequest()
+    // {
+    //     StatisticNames = new List<string> { leaderboard }
+    // },
+    // result =>
+    // {
+    //     Debug.Log("Complete " + result.ToString());
+    //     if (result.Statistics.First() != null)
+    //     {
+    //         minimumScore = result.Statistics.First().Value;
+    //     }
+    // },
+    // error => Debug.Log(error.GenerateErrorReport()));
 
 }

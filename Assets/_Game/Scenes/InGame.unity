@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Enter or rename:'
+  m_text: Update score or rename?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 47c88fdd37fff9845b4a1b046d87be3f, type: 2}
   m_sharedMaterial: {fileID: 5416806443266638455, guid: 47c88fdd37fff9845b4a1b046d87be3f, type: 2}
@@ -2348,7 +2348,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 120}
+  m_AnchoredPosition: {x: 0, y: 140}
   m_SizeDelta: {x: 500, y: 80}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &550307490
@@ -2371,7 +2371,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: 'Name:
+
+    Score:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 47c88fdd37fff9845b4a1b046d87be3f, type: 2}
   m_sharedMaterial: {fileID: 5416806443266638455, guid: 47c88fdd37fff9845b4a1b046d87be3f, type: 2}
@@ -2398,13 +2400,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28.95
+  m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontSizeMax: 32
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3137,7 +3139,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 39.9}
-  m_SizeDelta: {x: 700, y: 378}
+  m_SizeDelta: {x: 1200, y: 378}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &620411512
 MonoBehaviour:
@@ -3650,10 +3652,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830ce483e87eaf9428b7af542cbb052c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumScore: 0
-  currentScore: 0
   leaderboard: color_shooter2d
+  currentScore: 0
   playFabId: 
+  userName: 
+  highScore: 0
   uiLeaderboard: {fileID: 1328984230}
 --- !u!1 &776869651
 GameObject:
@@ -3691,7 +3694,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 550, y: 200}
+  m_SizeDelta: {x: 550, y: 160}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &776869653
 MonoBehaviour:
@@ -3713,7 +3716,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You get new high score!\nDo you want to push it?
+  m_text: You get new high score!\nDo you want to update it?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 47c88fdd37fff9845b4a1b046d87be3f, type: 2}
   m_sharedMaterial: {fileID: 5416806443266638455, guid: 47c88fdd37fff9845b4a1b046d87be3f, type: 2}
@@ -4905,6 +4908,7 @@ MonoBehaviour:
   objLeaderBoard: {fileID: 1958127592}
   objUpdateInfo: {fileID: 1622104029}
   objLoading: {fileID: 548427801}
+  scrollOffet: 10
   contentLeaderBoard: {fileID: 467936950}
   itemPrefab: {fileID: 4691445462327940832, guid: 9e3f5eb5bf3ffd94eb44614fc927d063, type: 3}
   itemCaches: []

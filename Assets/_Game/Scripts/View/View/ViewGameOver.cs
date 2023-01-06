@@ -47,9 +47,11 @@ public class ViewGameOver : View
 
     private void LoadView()
     {
-        int score = ScoreManager.Instance.score;
-        textHighScore.text = score.ToString();
-        PlayfabController.Instance.CheckShowRecordScore(score);
+        var score = ScoreManager.Instance.score;
+        var playfab = PlayfabController.Instance;
+
+        textHighScore.text = $"Current score: {score.ToString()} \nHigh score: {playfab.HighScore}";
+        playfab.CheckShowRecordScore(score);
     }
 
 

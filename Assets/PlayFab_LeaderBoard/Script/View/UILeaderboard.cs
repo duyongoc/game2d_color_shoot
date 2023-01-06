@@ -112,9 +112,15 @@ public class UILeaderboard : MonoBehaviour
     private void ShowYourNameAndScore()
     {
         txtYourScore.text = string.Empty;
-        PlayfabController.Instance.GetDisplayName((name) =>
+        var playfab = PlayfabController.Instance;
+
+        // get the lastest value ranking
+        playfab.GetUserCurrentRanking(() =>
         {
-            txtYourScore.text = $"Your name: {name} - score: {PlayfabController.Instance.CurrentScore}";
+            txtYourScore.text = $"Your name: <color=green>{playfab.UserName}</color> \n";
+            txtYourScore.text += $"Current Score: <color=green>{playfab.CurrentScore}</color> | ";
+            txtYourScore.text += $"High Score: <color=green>{playfab.HighScore}</color>";
+            inputName.text = playfab.UserName;
         });
     }
 
