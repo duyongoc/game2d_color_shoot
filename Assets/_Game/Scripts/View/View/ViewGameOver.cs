@@ -44,7 +44,6 @@ public class ViewGameOver : View
 
 
 
-
     private void LoadView()
     {
         var score = ScoreManager.Instance.score;
@@ -58,6 +57,12 @@ public class ViewGameOver : View
     public void OnClickButtonReplay()
     {
         GameManager.Instance.ReplayGame();
+    }
+
+
+    public void OnClickedLeaderBoard()
+    {
+        PlayfabController.Instance.ShowLeaderBoard();
     }
 
 

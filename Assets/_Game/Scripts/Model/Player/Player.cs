@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -47,6 +48,13 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            // check if clicked on ui 
+            if (EventSystem.current.IsPointerOverGameObject() && EventSystem.current.currentSelectedGameObject)
+            {
+                Debug.Log("Mouse Over: " + EventSystem.current.currentSelectedGameObject.name);
+                return;
+            }
+
             ShootingTarget();
         }
     }
@@ -109,7 +117,7 @@ public class Player : MonoBehaviour
     }
 
 
-    public void ResetData()
+    public void Reset()
     {
         transform.DOKill();
         transform.position = new Vector2(0, -2.5f);

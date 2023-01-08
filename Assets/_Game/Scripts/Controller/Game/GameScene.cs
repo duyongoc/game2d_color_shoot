@@ -164,10 +164,10 @@ public class GameScene : Singleton<GameScene>
 
     public void ResetGame()
     {
+        player.Reset();
         _hasFinish = false;
         _currentIndex = 0;
-        _viewInGame.ResetData();
-        player.ResetData();
+        _viewInGame.Reset();
 
         obstacleList.ForEach(x => { if (x != null) Destroy(x); });
         obstacleList.Clear();

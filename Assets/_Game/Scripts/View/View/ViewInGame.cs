@@ -29,32 +29,17 @@ public class ViewInGame : View
     #region STATE
     public override void StartState()
     {
-        StartView();
     }
 
     public override void UpdateState()
     {
-        UpdateView();
     }
 
     public override void EndState()
     {
-        EndView();
     }
     #endregion
 
-
-    private void StartView()
-    {
-    }
-
-    private void UpdateView()
-    {
-    }
-
-    private void EndView()
-    {
-    }
 
 
 
@@ -76,10 +61,16 @@ public class ViewInGame : View
     }
 
 
-    public void ResetData()
+    public void OnClickedLeaderBoard()
+    {
+        PlayfabController.Instance.ShowLeaderBoard();
+    }
+
+
+    public void Reset()
     {
         textScore.text = "00";
     }
-
+    
 
 }
