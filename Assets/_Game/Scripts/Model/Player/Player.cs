@@ -23,9 +23,28 @@ public class Player : MonoBehaviour
     private GameScene _gameScene;
     private List<Bullet> bulletList;
     private bool _isMoving = false;
+    private bool _canShoot = true;
 
 
     #region UNITY
+    private void OnEnable()
+    {
+        if (PlayfabController.Instance != null)
+        {
+            PlayfabController.Instance.OnEventShowLeaderBoard += OnShowLeaderBoard;
+            PlayfabController.Instance.OnEventHideLeaderBoard += OnHideLeaderBoard;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (PlayfabController.Instance != null)
+        {
+            PlayfabController.Instance.OnEventShowLeaderBoard -= OnShowLeaderBoard;
+            PlayfabController.Instance.OnEventHideLeaderBoard -= OnHideLeaderBoard;
+        }
+    }
+
     private void Start()
     {
         CacheComponent();
@@ -41,9 +60,10 @@ public class Player : MonoBehaviour
     #endregion
 
 
+
     private void UpdateShotBullet()
     {
-        if (_isMoving)
+        if (_isMoving || !_canShoot)
             return;
 
         if (Input.GetMouseButtonDown(0))
@@ -65,7 +85,6 @@ public class Player : MonoBehaviour
         _color = color;
         spriteRenderer.color = _color;
     }
-
 
 
     public void ShootingTarget()
@@ -94,6 +113,19 @@ public class Player : MonoBehaviour
                 _isMoving = false;
             });
     }
+
+
+    private void OnShowLeaderBoard()
+    {
+        _canShoot = false;
+    }
+
+
+    private void OnHideLeaderBoard()
+    {
+        _canShoot = true;
+    }
+
 
 
     private void ClearAllBullets()

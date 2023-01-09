@@ -6,8 +6,13 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 
-public class PlayfabController : Singleton<PlayfabController>
+public class PlayfabController : SingletonEvent<PlayfabController>
 {
+
+    // [Event]
+    public Action OnEventShowLeaderBoard;
+    public Action OnEventHideLeaderBoard;
+
 
     [Header("[Setting]")]
     [SerializeField] private string leaderboard;
@@ -103,6 +108,7 @@ public class PlayfabController : Singleton<PlayfabController>
     public void ShowLeaderBoard()
     {
         uiLeaderboard.ShowObjLoading(true);
+        OnEventShowLeaderBoard?.Invoke();
 
         // request for the user login 
         RequestLogin(() =>
@@ -200,6 +206,7 @@ public class PlayfabController : Singleton<PlayfabController>
         (result) => { },
         (error) => { Debug.LogError(error.GenerateErrorReport()); });
     }
+
 
 
     // private void GetAccountInfo(Action<string> cbSuccess = null)

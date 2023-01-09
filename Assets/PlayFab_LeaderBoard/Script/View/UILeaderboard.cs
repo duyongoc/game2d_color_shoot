@@ -146,9 +146,10 @@ public class UILeaderboard : MonoBehaviour
 
     public void OnClickButtonExit()
     {
+        ShowObjLoading(false);
         ShowObjLeaderBoard(false);
         ShowObjUpdateInfo(false);
-        ShowObjLoading(false);
+        PlayfabController.Instance.OnEventHideLeaderBoard?.Invoke();
     }
 
 
