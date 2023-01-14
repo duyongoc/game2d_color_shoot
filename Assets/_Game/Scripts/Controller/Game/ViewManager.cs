@@ -8,23 +8,19 @@ public class ViewManager : MonoBehaviour
 
 
     // DI
-    [Inject] private ViewLoading _viewLoading;
     [Inject] private ViewMenu _viewMenu;
     [Inject] private ViewInGame _viewInGame;
     [Inject] private ViewGameOver _viewGameOver;
-    [Inject] private ViewSetting _viewSetting;
-    [Inject] private ViewNone _viewNone;
 
-    // private
+    // [private]
     private View _stateView;
-    // [Inject] GameMgr _gameMgr;
+
 
 
     #region UNITY
-    private void Start()
-    {
-        // Init();
-    }
+    // private void Start()
+    // {
+    // }
 
     private void Update()
     {
@@ -39,7 +35,7 @@ public class ViewManager : MonoBehaviour
 
     private void Init()
     {
-        SetState(_viewNone);
+        SetState(_viewMenu);
     }
 
 
@@ -47,11 +43,9 @@ public class ViewManager : MonoBehaviour
     {
         switch (viewName)
         {
-            case "Loading": SetState(_viewLoading); break;
             case "Menu": SetState(_viewMenu); break;
             case "InGame": SetState(_viewInGame); break;
             case "GameOver": SetState(_viewGameOver); break;
-            case "Setting": SetState(_viewSetting); break;
         }
     }
 
@@ -61,22 +55,20 @@ public class ViewManager : MonoBehaviour
         if (_stateView != null)
             _stateView.EndState();
 
+        // set current state
         _stateView = newState;
         _stateView.StartState();
 
-        //active view with current state
+        // active view with current state
         SetActiveView(_stateView.GetType().Name);
     }
 
 
     public void SetActiveView(string nameScene)
     {
-        _viewLoading.gameObject.SetActive(_viewLoading.name.Contains(nameScene));
         _viewMenu.gameObject.SetActive(_viewMenu.name.Contains(nameScene));
         _viewInGame.gameObject.SetActive(_viewInGame.name.Contains(nameScene));
         _viewGameOver.gameObject.SetActive(_viewGameOver.name.Contains(nameScene));
-        _viewSetting.gameObject.SetActive(_viewSetting.name.Contains(nameScene));
-        _viewNone.gameObject.SetActive(_viewNone.name.Contains(nameScene));
     }
 
 

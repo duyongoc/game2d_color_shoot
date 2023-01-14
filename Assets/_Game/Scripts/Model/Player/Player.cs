@@ -47,7 +47,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        CacheComponent();
+        _gameScene = GameScene.Instance;
+        bulletList = new List<Bullet>();
     }
 
     private void Update()
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour
         UpdateShotBullet();
     }
     #endregion
+
 
 
 
@@ -130,27 +132,15 @@ public class Player : MonoBehaviour
 
     private void ClearAllBullets()
     {
-        bulletList.ForEach(x =>
-        {
-            if (x != null)
-            {
-                x.SelfDestroy();
-                // DG.Tweening.DOVirtual.DelayedCall(0.25f, () => { });
-            }
-        });
+        bulletList.ForEach(x => { if (x != null) { x.SelfDestroy(); } });
         bulletList.Clear();
-    }
-
-
-    public void CacheComponent()
-    {
-        _gameScene = GameScene.Instance;
-        bulletList = new List<Bullet>();
     }
 
 
     public void Reset()
     {
+        _canShoot = true;
+        _isMoving = false;
         transform.DOKill();
         transform.position = new Vector2(0, -2.5f);
     }

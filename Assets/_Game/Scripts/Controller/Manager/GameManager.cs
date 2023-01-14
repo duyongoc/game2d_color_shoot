@@ -10,7 +10,6 @@ public class GameManager : Singleton<GameManager>
     // public
     public static Action EVENT_RESET_INGAME;
     public GameState gameState = GameState.None;
-    public GameBoard gameBoard;
 
     // DI
     [Inject] private ViewManager _viewMgr;
@@ -43,9 +42,8 @@ public class GameManager : Singleton<GameManager>
 
     public void PlayGame()
     {
+        GameScene.Instance.Reset();
         GameScene.Instance.Init();
-        // gameBoard.Init();
-
         SetState(GameState.InGame);
         SoundManager.PlayMusic(SoundManager.MUSIC_BACKGROUND);
     }
@@ -53,7 +51,8 @@ public class GameManager : Singleton<GameManager>
 
     public void ReplayGame()
     {
-        GameScene.Instance.ResetGame();
+        GameScene.Instance.Reset();
+        GameScene.Instance.Init();
         SetState(GameState.InGame);
         SoundManager.PlayMusic(SoundManager.MUSIC_BACKGROUND);
     }
@@ -72,18 +71,12 @@ public class GameManager : Singleton<GameManager>
 
         switch (gameState)
         {
-            case GameState.Loading:
-                _viewMgr.SetStateView("Loading"); break;
             case GameState.Menu:
                 _viewMgr.SetStateView("Menu"); break;
             case GameState.InGame:
                 _viewMgr.SetStateView("InGame"); break;
             case GameState.GameOver:
                 _viewMgr.SetStateView("GameOver"); break;
-            case GameState.Setting:
-                _viewMgr.SetStateView("Setting"); break;
-            case GameState.None:
-                _viewMgr.SetStateView("None"); break;
         }
     }
 

@@ -35,13 +35,13 @@ public class ViewMenu : View
 
 
 
-    public void OnClickedPlayGame()
+    public void OnClickButtonPlayGame()
     {
         GameManager.Instance.PlayGame();
     }
 
 
-    public void OnClickedLeaderBoard()
+    public void OnClickButtonLeaderBoard()
     {
         PlayfabController.Instance.ShowLeaderBoard();
     }

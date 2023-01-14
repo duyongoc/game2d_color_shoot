@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ViewGameOver : View
 {
 
-    // inspector
-    [SerializeField] private TMP_Text textHighScore;
-    [SerializeField] private Transform highScorePanel;
-
-    private bool _isDoneGameover;
+    [Space]
+    [SerializeField] private Text txtScore;
+    [SerializeField] private Text txtHighScore;
+    [SerializeField] private bool _isDoneGameover;
 
 
 
@@ -49,7 +49,8 @@ public class ViewGameOver : View
         var score = ScoreManager.Instance.score;
         var playfab = PlayfabController.Instance;
 
-        textHighScore.text = $"Current score: {score.ToString()} \nHigh score: {playfab.HighScore}";
+        txtScore.text = $"{score.ToString()}";
+        txtHighScore.text = $"Best: {playfab.HighScore}"; 
         playfab.CheckShowRecordScore(score);
     }
 
@@ -60,7 +61,15 @@ public class ViewGameOver : View
     }
 
 
-    public void OnClickedLeaderBoard()
+    public void OnClickButtonMenu()
+    {
+        GameScene.Instance.Reset();
+        GameManager.Instance.SetState(GameState.Menu);
+        SoundManager.PlayMusic(SoundManager.MUSIC_BACKGROUND);
+    }
+
+
+    public void OnClickButtonLeaderBoard()
     {
         PlayfabController.Instance.ShowLeaderBoard();
     }

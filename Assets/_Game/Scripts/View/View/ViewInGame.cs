@@ -8,16 +8,15 @@ using UnityEngine;
 public class ViewInGame : View
 {
 
-
-    // inspector
+    [Space]
     [SerializeField] private TMP_Text textScore;
 
 
 
     #region  UNITY
-    private void Start()
-    {
-    }
+    // private void Start()
+    // {
+    // }
 
     // private void Update()
     // {
@@ -61,16 +60,20 @@ public class ViewInGame : View
     }
 
 
-    public void OnClickedLeaderBoard()
-    {
-        PlayfabController.Instance.ShowLeaderBoard();
-    }
-
-
     public void Reset()
     {
         textScore.text = "00";
     }
-    
+
+
+    public void OnClickButtonMenu()
+    {
+        Reset();
+        GameScene.Instance.Reset();
+        GameManager.Instance.SetState(GameState.Menu);
+        SoundManager.PlayMusic(SoundManager.MUSIC_BACKGROUND);
+    }
+
+
 
 }

@@ -162,7 +162,7 @@ public class GameScene : Singleton<GameScene>
     }
 
 
-    public void ResetGame()
+    public void Reset()
     {
         player.Reset();
         _hasFinish = false;
@@ -173,9 +173,6 @@ public class GameScene : Singleton<GameScene>
         obstacleList.Clear();
 
         GameManager.EVENT_RESET_INGAME?.Invoke();
-
-        // refesh game
-        Init();
     }
 
 
