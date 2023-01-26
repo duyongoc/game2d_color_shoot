@@ -1,9 +1,9 @@
 # color_shoot2d
 
 Play:
+- link: https://buildunityweb.github.io/build_web_game2d_color_shoot_1
+- link: https://buildunityweb.github.io/build_web_game2d_color_shoot_2
 - https://play.unity.com/mg/other/color_shoot2d_web
-- https://duyongoc.itch.io/color-shoot2d
-- https://duyongoc.github.io/color_shoot2d_web
 
 
 ![image](https://user-images.githubusercontent.com/62178856/162599592-3599a9e6-a5fb-48e3-943c-46328798c787.png)
