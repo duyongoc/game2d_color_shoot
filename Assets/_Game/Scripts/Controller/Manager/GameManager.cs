@@ -68,7 +68,6 @@ public class GameManager : Singleton<GameManager>
     public void SetState(GameState newState)
     {
         gameState = newState;
-
         switch (gameState)
         {
             case GameState.Menu:

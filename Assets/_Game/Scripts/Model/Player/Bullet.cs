@@ -49,13 +49,17 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!GameManager.Instance.IsInGameState)
+            return;
+
         if (other.CompareTag("Shield"))
         {
-            var shield = other.GetComponentInParent<ObstacleShield>();
-            shield?.ImpactBullet(transform);
+            // impact with the bullet
+            other.GetComponentInParent<ObstacleShield>()?.ImpactBullet(transform);
 
-            this.PostEvent(EventID.OnEvent_GameOver);
+            // set gameover state
             ImpactShield();
+            this.PostEvent(EventID.OnEvent_GameOver);
         }
     }
 

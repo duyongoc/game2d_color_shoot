@@ -27,7 +27,7 @@ public class GameScene : Singleton<GameScene>
     private GameObject _curObstacle;
     private GameObject _nextObstacle;
     private int _currentIndex = 0;
-    
+
     private TurnData _currentTurn;
     private Color _curColor;
     private Color _nextColor;
@@ -145,14 +145,11 @@ public class GameScene : Singleton<GameScene>
 
     public void GameOver(object param)
     {
-        ShakeCamera();
         _hasFinish = true;
 
+        ShakeCamera();
         SoundManager.StopMusic();
-        DOVirtual.DelayedCall(1f, () =>
-        {
-            GameManager.Instance.GameOver();
-        });
+        DOVirtual.DelayedCall(1f, () => { GameManager.Instance.GameOver(); });
     }
 
 

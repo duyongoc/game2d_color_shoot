@@ -30,7 +30,7 @@ public class ViewGameOver : View
     #region STATE
     public override void StartState()
     {
-        LoadView();
+        Load();
     }
 
     public override void UpdateState()
@@ -44,7 +44,7 @@ public class ViewGameOver : View
 
 
 
-    private void LoadView()
+    private void Load()
     {
         var score = ScoreManager.Instance.score;
         var playfab = PlayfabController.Instance;
