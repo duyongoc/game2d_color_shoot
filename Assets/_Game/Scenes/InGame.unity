@@ -176,7 +176,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1280}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.75
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -5538,7 +5538,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 559624753}
   m_HandleRect: {fileID: 559624752}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.99999875
   m_Size: 0.87875
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9951,7 +9951,7 @@ RectTransform:
   m_GameObject: {fileID: 274590113499782580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 1}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 274590113933636770}
