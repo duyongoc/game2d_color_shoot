@@ -6,7 +6,7 @@ public class ScoreManager : Singleton<ScoreManager>
 {
 
 
-    // public
+    // [public]
     public int score;
     public int highscore;
 

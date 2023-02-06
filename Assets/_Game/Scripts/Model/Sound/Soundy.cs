@@ -5,9 +5,9 @@ using UnityEngine;
 public class Soundy : MonoBehaviour
 {
 
-    [SerializeField] 
-    private AudioSource audioSource;
-    // private AudioClip audioClip;
+    [Header("[Setting]")]
+    [SerializeField] private AudioSource audioSource;
+    // [SerializeField] private AudioClip audioClip;
 
 
 

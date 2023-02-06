@@ -7,9 +7,8 @@ using Zenject;
 public class GameScene : Singleton<GameScene>
 {
 
-    [Header("Config")]
+    [Header("[Setting]")]
     public LevelDesign levelDesign;
-
 
     [Space(15)]
     [SerializeField] private Player player;
@@ -22,7 +21,7 @@ public class GameScene : Singleton<GameScene>
     [SerializeField] private float maxDistanceX = 2.5f;
 
 
-    // private
+    // [private]
     private List<GameObject> obstacleList;
     private GameObject _curObstacle;
     private GameObject _nextObstacle;
@@ -34,13 +33,15 @@ public class GameScene : Singleton<GameScene>
     private bool _hasFinish;
 
 
-    // DI
+    // [DI]
     [Inject] ViewInGame _viewInGame;
 
 
+    // [properties]
     public Transform GetNextObstacle => _nextObstacle.transform;
     public Transform GetPlayer => player.transform;
     public bool HasFinish { get => _hasFinish; set => _hasFinish = value; }
+
 
 
     #region UNITY

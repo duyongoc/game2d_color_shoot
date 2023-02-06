@@ -7,15 +7,15 @@ using Zenject;
 public class GameManager : Singleton<GameManager>
 {
 
-    // public
+    // [public]
     public static Action EVENT_RESET_INGAME;
     public GameState gameState = GameState.None;
 
-    // DI
+    // [DI]
     [Inject] private ViewManager _viewMgr;
 
 
-    // properties
+    // [properties]
     public bool IsInGameState => gameState == GameState.InGame;
 
 

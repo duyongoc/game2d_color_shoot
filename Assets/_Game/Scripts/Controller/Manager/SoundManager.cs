@@ -15,20 +15,19 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private Transform sfxAudio;
 
 
-    //= private
+    // [private]
     private static AudioSource audioMusic;
     private static AudioSource audioSFX;
 
 
-    // music
+    // [music]
     public static AudioClip MUSIC_BACKGROUND;
     public static AudioClip MUSIC_MENU;
 
-    // sfx
+    // [sfx]
     public static AudioClip SFX_SHOOT;
     public static AudioClip SFX_SHOOT_HIT;
     public static AudioClip SFX_PASS_OBSTACLE;
-
     public static AudioClip SFX_GAMEOVER;
 
 
@@ -46,6 +45,7 @@ public class SoundManager : Singleton<SoundManager>
     #endregion
 
 
+
     public static void PlayMusic(AudioClip audi, bool loop = true)
     {
         audioMusic.clip = audi;
@@ -53,10 +53,12 @@ public class SoundManager : Singleton<SoundManager>
         audioMusic.Play();
     }
 
+
     public static void StopMusic()
     {
         audioMusic.Stop();
     }
+
 
     public void PlaySFX(AudioClip audi)
     {
@@ -71,25 +73,30 @@ public class SoundManager : Singleton<SoundManager>
         audioSFX.clip = null;
     }
 
+
     public static void StopSFX(AudioClip clip)
     {
         audioSFX.Stop();
     }
+
 
     public static void PlaySFXOneShot(AudioClip clip)
     {
         audioSFX.PlayOneShot(clip);
     }
 
+
     public static void PlaySFXBlend(AudioClip clip, AudioSource audioSource)
     {
         audioSource.PlayOneShot(clip);
     }
 
+
     public static bool MusicPlaying(AudioClip audi)
     {
         return audioMusic.clip == audi && audioMusic.isPlaying;
     }
+
 
     public static bool SFXPlaying(AudioClip audi)
     {

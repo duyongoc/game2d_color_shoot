@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameBoard : MonoBehaviour
 {
 
-    [Header("Config")]
+    [Header("[Setting]")]
     public LevelDesign levelDesign;
 
     [Space(15)]
@@ -28,17 +28,25 @@ public class GameBoard : MonoBehaviour
     [SerializeField] private GameObject _nextObstacle;
     [SerializeField] private int _currentIndex = 0;
 
+
+    // [private]
     private TurnData _currentTurn;
     private Color _curColor;
     private Color _nextColor;
     private bool _hasFinish;
 
 
-    public void Start()
+    #region UNITY
+    private void Start()
     {
         Init();
-
     }
+
+    // private void Update()
+    // {   
+    // }
+    #endregion
+
 
 
     public void Init()

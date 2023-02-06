@@ -6,10 +6,15 @@ using UnityEngine.AI;
 public class SpawnEnemy1 : MonoBehaviour
 {
 
-    //= inspector
-    [Header("CONFIG")]
-    [SerializeField] private GameObject enemyPrefab;
-    public enum SpawnState { Init, Spawn, None };
+    public enum SpawnState
+    {
+        Init,
+        Spawn,
+        None
+    };
+
+    [Header("[Setting]")]
+    public GameObject enemyPrefab;
     public SpawnState currentState;
 
     [Header("Pools")]
@@ -17,12 +22,12 @@ public class SpawnEnemy1 : MonoBehaviour
     [SerializeField] private bool hasExpand = true;
 
 
-    //= private
+    // [private]
     private List<GameObject> listEnemiesCreated;
     private Timer timeSpawn = new Timer();
     private Transform target;
-    // private float moveSpeed;
 
+    // private float moveSpeed;
     private float minRangeSpawn;
     private float maxRangeSpawn;
 
@@ -39,7 +44,7 @@ public class SpawnEnemy1 : MonoBehaviour
     private void Update()
     {
         // if (!GameMgr.Instance.InGameState)
-            // return;
+        // return;
 
         switch (currentState)
         {
@@ -49,6 +54,8 @@ public class SpawnEnemy1 : MonoBehaviour
         }
     }
     #endregion
+
+
 
     #region Function of State
     private void InitSpawnWarningEnemy()
@@ -84,6 +91,7 @@ public class SpawnEnemy1 : MonoBehaviour
         return point;
     }
 
+
     private GameObject CreateEnemy(Vector3 newPos, Quaternion newRot)
     {
         GameObject newObject = GetPoolObject();
@@ -93,9 +101,9 @@ public class SpawnEnemy1 : MonoBehaviour
         newObject.transform.position = newPos;
         newObject.transform.rotation = newRot;
         newObject.gameObject.SetActive(true);
-
         return newObject;
     }
+
 
     private GameObject GetPoolObject()
     {
@@ -118,6 +126,7 @@ public class SpawnEnemy1 : MonoBehaviour
         return newObject;
     }
 
+
     private void InitPoolsObject()
     {
         for (int i = 0; i < poolLength; i++)
@@ -136,20 +145,20 @@ public class SpawnEnemy1 : MonoBehaviour
         // listEnemiesCreated.ForEach(x => x.GetComponent<Enemy>().Reset());
     }
 
+
     private void CacheDefine()
     {
         listEnemiesCreated = new List<GameObject>();
         // minRangeSpawn = CONFIG.minRangeSpawn;
         // maxRangeSpawn = CONFIG.maxRangeSpawn;
         // moveSpeed = CONFIG.moveSpeed;
-
         // timeSpawn.SetDuration(CONFIG.timeSpawn);
     }
+
 
     private void CacheComponent()
     {
         // target = Character.Instance.transform;
     }
-
 
 }

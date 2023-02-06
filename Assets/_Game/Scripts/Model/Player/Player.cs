@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 {
 
 
-    [Header("Bullet")]
+    [Header("[Setting]")]
     [SerializeField] private Transform bulletPrefab;
     [SerializeField] private float bulletSpeed = 25f;
 
@@ -18,12 +18,13 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
 
-    // private
+    // [private]
     private Color _color;
     private GameScene _gameScene;
     private List<Bullet> bulletList;
     private bool _isMoving = false;
     private bool _canShoot = true;
+
 
 
     #region UNITY
@@ -105,7 +106,7 @@ public class Player : MonoBehaviour
     {
         _isMoving = true;
         transform.DOKill();
-        ClearAllBullets();
+        ClearCache();
 
         transform.DOMove(target, timeMove)
             .SetEase(Ease.InOutQuad)
@@ -129,8 +130,7 @@ public class Player : MonoBehaviour
     }
 
 
-
-    private void ClearAllBullets()
+    private void ClearCache()
     {
         bulletList.ForEach(x => { if (x != null) { x.SelfDestroy(); } });
         bulletList.Clear();

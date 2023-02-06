@@ -5,12 +5,12 @@ using UnityEngine;
 public class ObstacleShield : MonoBehaviour
 {
 
-    [Header("Shield")]
+    [Header("[Setting]")]
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject shieldEffect;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-    // private
+    // [private]
     private float _rotateSpeed;
 
 

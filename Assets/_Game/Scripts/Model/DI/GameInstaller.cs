@@ -9,7 +9,7 @@ public class GameInstaller : MonoInstaller
     public sealed override void InstallBindings()
     {
         // base.InstallBindings();
-
+        
 
         // manager 
         this.Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle().Lazy();

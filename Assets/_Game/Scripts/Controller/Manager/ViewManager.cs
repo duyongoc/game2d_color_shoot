@@ -6,11 +6,11 @@ using Zenject;
 public class ViewManager : MonoBehaviour
 {
 
-
-    // DI
+    // [DI]
     [Inject] private ViewMenu _viewMenu;
     [Inject] private ViewInGame _viewInGame;
     [Inject] private ViewGameOver _viewGameOver;
+
 
     // [private]
     private View _stateView;

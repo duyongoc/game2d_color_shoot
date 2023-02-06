@@ -8,7 +8,7 @@ public class TextScore : MonoBehaviour
 {
 
 
-    [Space(10)]
+    [Header("[Setting]")]
     [SerializeField] private TMP_Text textScore;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float destroyTime;

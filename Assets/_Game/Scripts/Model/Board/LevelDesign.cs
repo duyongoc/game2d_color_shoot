@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelDesign : MonoBehaviour
 {
 
-    [Header("Config")]
+    [Header("[Setting]")]
     public SOSetting setting;
 
 

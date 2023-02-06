@@ -6,20 +6,21 @@ public class Bullet : MonoBehaviour
 {
 
 
-    // inspector
+    [Header("[Setting]")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private GameObject bulletEffect;
 
 
     #region UNITY
-    private void Start()
-    {
-    }
+    // private void Start()
+    // {
+    // }
 
     // private void Update()
     // {
     // }
     #endregion
+
 
 
     public void InitBullet(Color color, Vector2 vecDir, float force)

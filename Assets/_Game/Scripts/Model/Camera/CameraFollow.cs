@@ -5,16 +5,15 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
 
-    [Header("Follow speed")]
+    [Header("[Setting]")]
     [Range(0f, 50f)] public float moveSpeed = 5f;
-
-    [Header("Camera Offset")]
     [Range(-10f, 10f)] public float yOffset;
     [Range(-10f, 10f)] public float xOffset;
 
 
-    // private 
+    // [private] 
     private Transform _target;
+
 
 
     #region UNITY
@@ -27,7 +26,6 @@ public class CameraFollow : MonoBehaviour
     {
         GameManager.EVENT_RESET_INGAME -= ResetData;
     }
-
 
     private void Start()
     {

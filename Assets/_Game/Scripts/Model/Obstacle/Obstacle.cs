@@ -8,7 +8,7 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
 
-    [Space(15)]
+    [Header("[Setting]")]
     [SerializeField] private int scorePlus = 5;
     [SerializeField] private GameObject scorePrefab;
     [SerializeField] private GameObject shieldPrefab;
@@ -24,7 +24,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField] private Animator waveAnim;
 
 
-    // private
+    // [private]
     private int _value;
     private Color _color;
     private TurnData _turn;
@@ -34,9 +34,9 @@ public class Obstacle : MonoBehaviour
 
 
     #region UNITY
-    private void Start()
-    {
-    }
+    // private void Start()
+    // {
+    // }
 
     // private void Update()
     // {
@@ -65,7 +65,6 @@ public class Obstacle : MonoBehaviour
             _turn = newTurn;
             _value = Random.Range(_turn.minValue, _turn.maxValue);
             textMesh.text = _value.ToString();
-
             CreateShield();
         }
 
@@ -74,9 +73,8 @@ public class Obstacle : MonoBehaviour
 
     private void CreateShield()
     {
-        int angle = 0;
-        int angleOfShield = 360 / _turn.shieldCount;
-
+        var angle = 0;
+        var angleOfShield = 360 / _turn.shieldCount;
         var randSpeed = Random.Range(_turn.minShieldSpeed, _turn.maxShieldSpeed + 1);
         randSpeed = Random.Range(0f, 1f) > 0.5f ? randSpeed : -randSpeed;
 
