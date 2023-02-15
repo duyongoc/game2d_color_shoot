@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class FPSCounter : Singleton<FPSCounter>
 {
 
     // how often should the number update
     public float updateInterval = 0.5f;
 
+
+    // [private]
     private float fps;
     private float timeleft;
     private int frames = 0;

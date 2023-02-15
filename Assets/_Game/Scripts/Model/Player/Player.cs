@@ -94,7 +94,6 @@ public class Player : MonoBehaviour
     {
         var bullet = bulletPrefab.SpawnToGarbage(transform.position, Quaternion.identity);
         var vecDir = _gameScene.GetNextObstacle.position - transform.position;
-
         bullet.GetComponent<Bullet>().InitBullet(_color, vecDir.normalized, bulletSpeed);
         bulletList.Add(bullet.GetComponent<Bullet>());
 

@@ -29,7 +29,7 @@ public class CommonTween : MonoBehaviour
     public TweenPosition tweenPosition;
 
 
-    // private
+    // [private]
     private TweenObject _tweenObject;
 
 

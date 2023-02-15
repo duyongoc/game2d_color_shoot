@@ -5,10 +5,14 @@ using UnityEngine;
 public class ScoreManager : Singleton<ScoreManager>
 {
 
+    // [private]
+    private int score;
+    private int highscore;
 
-    // [public]
-    public int score;
-    public int highscore;
+
+    // [properties]
+    public int Score { get => score; }
+    public int Highscore { get => highscore; }
 
 
 
@@ -24,10 +28,6 @@ public class ScoreManager : Singleton<ScoreManager>
         GameManager.EVENT_RESET_INGAME -= ResetData;
         this.RemoveListener(EventID.OnEvent_UpdateScore, UpdateScore);
     }
-
-    // private void Update()
-    // {
-    // }
     #endregion
 
 

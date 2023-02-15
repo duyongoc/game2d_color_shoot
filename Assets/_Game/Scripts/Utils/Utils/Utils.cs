@@ -44,11 +44,12 @@ public class Utils : MonoBehaviour
     }
 
 
-    // return string time with format : mm:ss
     public static string GetStringTimeFromSecond(float time)
     {
         int minute = (int)time / 60;
         int second = (int)time - minute * 60;
+        
+        // return string time with format : mm:ss
         return $"{minute.ToString("##.")}:{second.ToString("##.")}";
     }
 

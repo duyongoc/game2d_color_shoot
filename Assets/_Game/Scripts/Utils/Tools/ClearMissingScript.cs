@@ -10,11 +10,14 @@ public static class FindMissingScriptsRecursively
     private static void FindAndRemoveMissingInSelected()
     {
         // EditorUtility.CollectDeepHierarchy does not include inactive children
-        var deeperSelection = Selection.gameObjects.SelectMany(go => go.GetComponentsInChildren<Transform>(true))
+        var deeperSelection = Selection.gameObjects
+            .SelectMany(go => go.GetComponentsInChildren<Transform>(true))
             .Select(t => t.gameObject);
+            
         var prefabs = new HashSet<Object>();
         int compCount = 0;
         int goCount = 0;
+
         foreach (var go in deeperSelection)
         {
             int count = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(go);

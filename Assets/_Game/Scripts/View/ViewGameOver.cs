@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ViewGameOver : View
 {
 
-    [Space]
+    [Header("[Setting]")]
     [SerializeField] private Text txtScore;
     [SerializeField] private Text txtHighScore;
     [SerializeField] private bool _isDoneGameover;
@@ -46,7 +46,7 @@ public class ViewGameOver : View
 
     private void Load()
     {
-        var score = ScoreManager.Instance.score;
+        var score = ScoreManager.Instance.Score;
         var playfab = PlayfabController.Instance;
 
         txtScore.text = $"{score.ToString()}";

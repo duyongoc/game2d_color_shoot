@@ -8,7 +8,7 @@ using UnityEngine;
 public class TweenLocalTransfrom : TweenObject
 {
 
-
+    // [private]
     private Vector3 _originPosition;
     private Vector3 _originScale;
     private Quaternion _originRotation;

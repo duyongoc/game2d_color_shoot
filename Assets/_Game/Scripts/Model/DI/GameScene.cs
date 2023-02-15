@@ -131,7 +131,7 @@ public class GameScene : Singleton<GameScene>
 
     public void UpdateScore(object param)
     {
-        _viewInGame.UpdateScore(ScoreManager.Instance.score);
+        _viewInGame.UpdateScore(ScoreManager.Instance.Score);
 
     }
 

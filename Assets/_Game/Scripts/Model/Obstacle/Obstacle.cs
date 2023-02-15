@@ -219,6 +219,7 @@ public class Obstacle : MonoBehaviour
         }
     }
 
+
     private void OnTriggerExit2D(Collider2D other)
     {
         switch (other.tag)

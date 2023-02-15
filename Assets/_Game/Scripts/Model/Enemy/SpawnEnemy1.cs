@@ -57,34 +57,28 @@ public class SpawnEnemy1 : MonoBehaviour
 
 
 
-    #region Function of State
     private void InitSpawnWarningEnemy()
     {
-        var bot = CreateEnemy(new Vector3(30, 30, 0), Quaternion.identity);
-        // bot.GetComponent<Enemy>().Init();
-        var bot2 = CreateEnemy(new Vector3(-30, 30, 0), Quaternion.identity);
-        // bot2.GetComponent<Enemy>().Init();
-
+        CreateEnemy(new Vector3(30, 30, 0), Quaternion.identity);
+        CreateEnemy(new Vector3(-30, 30, 0), Quaternion.identity);
         currentState = SpawnState.Spawn;
     }
+
 
     private void SpawnEnemy()
     {
         timeSpawn.UpdateTime(Time.deltaTime);
         if (timeSpawn.IsDone)
         {
-            var bot = CreateEnemy(GetRandomPoint(), Quaternion.identity);
-            // bot.GetComponent<Enemy>().Init();
+            CreateEnemy(GetRandomPoint(), Quaternion.identity);
             timeSpawn.Reset();
         }
     }
-    #endregion
 
 
     private Vector2 GetRandomPoint()
     {
         Vector2 vec = new Vector3(target.position.x, target.position.y, 0);
-
         var randomDirection = (Random.insideUnitCircle * vec).normalized;
         var randomDistance = Random.Range(minRangeSpawn, maxRangeSpawn);
         var point = vec + randomDirection * randomDistance;
@@ -120,7 +114,6 @@ public class SpawnEnemy1 : MonoBehaviour
         {
             newObject = Instantiate(enemyPrefab, new Vector2(0, -100), Quaternion.identity, transform);
             listEnemiesCreated.Add(newObject);
-            // newObject.SetActive(false);
         }
 
         return newObject;
@@ -141,8 +134,8 @@ public class SpawnEnemy1 : MonoBehaviour
     {
         timeSpawn.Reset();
         currentState = SpawnState.Init;
-        // moveSpeed = 0;
         // listEnemiesCreated.ForEach(x => x.GetComponent<Enemy>().Reset());
+        // moveSpeed = 0;
     }
 
 

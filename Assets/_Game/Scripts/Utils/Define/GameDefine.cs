@@ -2,7 +2,6 @@
 
 public class GameDefine
 {
-
 }
 
 public enum GameState
@@ -19,6 +18,6 @@ public enum TypeTarget
 {
     None,
     MoveY,
-    // MoveXY,
     Jumping
+    // MoveXY,
 }

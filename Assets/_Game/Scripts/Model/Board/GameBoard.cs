@@ -8,8 +8,6 @@ public class GameBoard : MonoBehaviour
 
     [Header("[Setting]")]
     public LevelDesign levelDesign;
-
-    [Space(15)]
     [SerializeField] private Player player;
     [SerializeField] private GameObject obstaclePrefab;
     [SerializeField] private GameObject objectPrefab;

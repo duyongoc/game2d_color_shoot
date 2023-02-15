@@ -8,7 +8,8 @@ using UnityEngine;
 public class ViewInGame : View
 {
 
-    [Space]
+
+    [Header("[Setting]")]
     [SerializeField] private TMP_Text textScore;
 
 
@@ -52,11 +53,9 @@ public class ViewInGame : View
 
     private void PlayScoreAnimation()
     {
-        textScore.transform.DOScale(Vector3.one * .45f, 1).SetEase(Ease.InOutQuad)
-            .OnComplete(() =>
-            {
-                textScore.transform.localScale = Vector3.one * .35f;
-            });
+        textScore.transform.DOScale(Vector3.one * .45f, 1)
+            .SetEase(Ease.InOutQuad)
+            .OnComplete(() => { textScore.transform.localScale = Vector3.one * .35f; });
     }
 
 

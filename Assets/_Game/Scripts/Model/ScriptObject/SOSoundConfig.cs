@@ -6,12 +6,12 @@ using UnityEngine;
 public class SOSoundConfig : ScriptableObject
 {
 
-    [Header("Music")]
+    [Header("[Music]")]
     public AudioClip MUSIC_BACKGROUND;
     public AudioClip MUSIC_MENU;
 
 
-    [Header("SFX")]
+    [Header("[SFX]")]
     public AudioClip SFX_SHOOT;
     public AudioClip SFX_SHOOT_HIT;
     public AudioClip SFX_PASS_OBSTACLE;

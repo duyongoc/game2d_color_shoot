@@ -22,17 +22,14 @@ public class ViewSetting : View
     #region STATE
     public override void StartState()
     {
-
     }
 
     public override void UpdateState()
     {
-
     }
 
     public override void EndState()
     {
-
     }
     #endregion
 
